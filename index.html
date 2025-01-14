@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rockstar Fans | #GTAVI News</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+    <meta name="keywords" content="GTAVI, GTA VI, GTA 6, GTA6, GTA VI Trailer, GTA6 Trailer, Grand Theft Auto VI, Grand Theft Auto VI Trailer, Grand Theft Auto 6, Grand Theft Auto 6 Trailer, تریلر gta 6, تریلر gta6, تریلر gta, تریلر گتا, اخبار gta 6, اخبار gta, راکستار فنز, راکستار فنس, گروه هواداران راکستار">
+    <meta name="description" content="Rockstar Fans, first Persian Rockstar Games fan page since 2011.">
+
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: white; /* Background of the frame */
+        }
+
+        /* Inner content wrapper */
+        .inner-wrapper {
+            width: calc(100% - 0px); /* Adjusted frame size */
+            height: calc(100% - 0px); /* Adjusted frame size */
+            background: url('/img/bg.webp') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+            border: 10px solid white; /* Increased border thickness */
+            position: relative; /* Position relative for absolute positioning of the logo */
+        }
+
+        /* Content styles */
+        .content {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 10px;
+            box-sizing: border-box;
+            width: 800px; /* Set width to 800px */
+            margin: 20px auto; /* Center the content horizontally */
+            text-align: center;
+            /* Add box shadow */
+            box-shadow: 0 0 3px #FF00EA;
+        }
+
+        /* Header styles */
+        header {
+            background-color: #85007A; /* Header background color */
+            color: #fff;
+            padding: 1rem 0;
+            border-radius: 10px 10px 0 0;
+            transition: background-color 0.3s ease; /* Smooth transition */
+            cursor: pointer; /* Change cursor to pointer on hover */
+        }
+
+        header:hover {
+            background-color: #9D0C93; /* Brighter color on hover */
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        /* Section styles */
+        section {
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive iframe container */
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .iframe-container iframe, .iframe-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            cursor: pointer;
+        }
+
+        /* Telegram section styles */
+        #telegram a {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: #0088cc;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        #telegram a:hover {
+            background-color: #006699;
+        }
+
+        .vazirmatn-weight-400 {
+            font-family: 'Vazirmatn', sans-serif;
+            font-weight: 400;
+        }
+
+        /* Farsi text styles */
+        .vazirmatn-default {
+            font-family: 'Vazirmatn', sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 600; /* Default weight */
+            font-style: normal;
+        }
+
+        /* Footer styles */
+        footer {
+            color: #fff;
+            padding: 1rem 20px; /* Add padding for spacing from left and right edges */
+            border-radius: 0 0 10px 10px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%; /* Make footer take full width */
+            display: flex;
+            justify-content: space-between; /* Distribute space between items */
+            align-items: center;
+            box-sizing: border-box;
+            flex-wrap: wrap; /* Wrap content for responsiveness */
+        }
+
+        footer img {
+            width: 100px; /* Set initial width of the logo */
+            margin-right: 10px; /* Add spacing between logo and text */
+            max-width: 100%; /* Make sure the logo does not exceed its container */
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem; /* Default font size */
+        }
+
+        /* Responsive Styles */
+        @media only screen and (max-width: 767px) {
+            .content {
+                width: 90%; /* Set width to 90% for smaller screens */
+            }
+
+            footer {
+                flex-direction: column; /* Stack items vertically */
+                align-items: center; /* Center items horizontally */
+                padding: 1rem; /* Add more padding to ensure no overlap */
+            }
+
+            footer img {
+                display: none; /* Hide the footer logo */
+            }
+
+            footer p {
+                font-size: 0.875rem; /* Smaller font size */
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            .inner-wrapper {
+                width: calc(100% - 20px); /* Thinner frame size for mobile */
+                height: calc(100% - 20px); /* Thinner frame size for mobile */
+            }
+
+            .content {
+                width: 95%; /* Set width to 95% for even smaller screens */
+            }
+
+            footer {
+                padding: 1rem 0.5rem; /* Adjust padding to ensure proper spacing */
+            }
+
+            footer p {
+                font-size: 0.75rem; /* Even smaller font size */
+            }
+        }
+        /* CSS for the counter wrapper */
+            #counter-wrapper {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 9999; /* Ensure it's above other content */
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div class="inner-wrapper">
+        <div class="content">
+            <header>
+                <h1>Welcome to Rockstar Fans!</h1>
+            </header>
+            
+            <main>
+                <section id="trailer">
+                    <h2>Grand Theft Auto VI Trailer 1</h2>
+                    <div class="iframe-container">
+                        <img src="http://rockstarfans.com/img/gtavitrailerplay.webp" alt="GTA VI Trailer Thumbnail" id="thumbnail">
+                    </div>
+                    <!-- Description in Farsi (RTL language) -->
+                    <p class="vazirmatn-default" dir="rtl">بازی Grand Theft Auto VI به ایالت Leonida می‌رود، و در بزرگترین و عظیم‌ترین تکامل نسخه GTA به خیابان‌های غلتیده در نئون Vice City می‌تازد.</p>
+                </section>
+
+                <section id="telegram">
+                    <h4 class="vazirmatn-weight-400">Join Our Telegram Channel</h4>
+                    <a href="https://t.me/rockstarfans" target="_blank">@RockstarFans on Telegram</a>
+                </section>
+            </main>
+            
+            <footer>
+                <img src="http://rockstarfans.com/img/logo.png" alt="Rockstar Fans">
+                <p>&copy; 2024</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('thumbnail').addEventListener('click', function() {
+            var iframe = document.createElement('iframe');
+            iframe.setAttribute('src', 'https://drive.google.com/file/d/1wRuw1TvAqcPKUWkMbKUmpeI6sGvBDT_4/preview');
+            iframe.setAttribute('allow', 'autoplay');
+            iframe.style.position = 'absolute';
+            iframe.style.top = '0';
+            iframe.style.left = '0';
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.border = '0';
+
+            var container = this.parentNode;
+            container.removeChild(this);
+            container.appendChild(iframe);
+        });
+    </script>
+</body>
+</html>
