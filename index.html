@@ -58,10 +58,6 @@
             cursor: pointer; /* Change cursor to pointer on hover */
         }
 
-        header:hover {
-            background-color: #9D0C93; /* Brighter color on hover */
-        }
-
         header h1 {
             margin: 0;
         }
@@ -76,7 +72,7 @@
    	top: 3%; /* Position the logo at the top */
  	left: 50%; /* Center the logo horizontally */
     	transform: translateX(-50%); /* Fine-tune horizontal centering */
-    	font-size: 5rem;
+    	font-size: 5vw;
     	font-weight: 700;
     	background: linear-gradient(to bottom, #9158d8, #9158d8, #fb68a7, #f09a54, #f09a54);
     	-webkit-background-clip: text;
@@ -158,7 +154,11 @@
 
         /* Responsive Styles */
         @media only screen and (max-width: 767px) {
-            .content {
+                .rsflogo {
+      				 font-size: 8vw; /* سایز بزرگتر در موبایل */
+    				 top: 1%;
+  			  }
+		.content {
                 width: 90%; /* Set width to 90% for smaller screens */
             }
 
