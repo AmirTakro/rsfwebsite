@@ -74,20 +74,20 @@
             margin-bottom: 2rem;
         }
         
-        .rsfcontent {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
+		.rsfcontent {
+   			position: relative; /* Make the container relative for absolute positioning */
+		}
 
-        /* RockstarFans Logo VI Gradient */
-        .rsflogo {
-            font-size: 5rem;
-            font-weight: 700; /* You can adjust this value (100-900) */
-            background: linear-gradient(to bottom, #9158d8, #9158d8, #fb68a7, #f09a54, #f09a54);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+		.rsflogo {
+    		position: absolute;
+   			top: 0; /* Position the logo at the top */
+    		left: 50%; /* Center the logo horizontally */
+    		transform: translateX(-50%); /* Fine-tune horizontal centering */
+    		font-size: 5rem;
+    		font-weight: 700;
+    		background: linear-gradient(to bottom, #9158d8, #9158d8, #fb68a7, #f09a54, #f09a54);
+    		-webkit-background-clip: text;
+    		-webkit-text-fill-color: transparent;
         }
 
         /* Responsive iframe container */
