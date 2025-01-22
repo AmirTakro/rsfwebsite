@@ -17,25 +17,37 @@
             margin: 0;
             padding: 0;
             color: #333;
+            background: white;
             height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            justify-content: flex-start;
             align-items: center;
-            background: white; /* Background of the frame */
+        }
+
+        /* RockstarFans Logo VI Gradient */
+        .rsflogo {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(to bottom, #9158d8, #fb68a7, #f09a54);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 20px 0;
+            text-align: center;
         }
 
         /* Inner content wrapper */
         .inner-wrapper {
-            width: calc(100% - 0px); /* Adjusted frame size */
-            height: calc(100% - 0px); /* Adjusted frame size */
+            width: 100%;
+            max-width: 1200px;
+            padding: 10px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 10px solid pink;
             background: url('/img/bg3.webp') no-repeat center center;
             background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-sizing: border-box;
-            border: 10px solid pink; /* Increased border thickness */
-            position: relative; /* Position relative for absolute positioning of the logo */
         }
 
         /* Content styles */
@@ -44,53 +56,17 @@
             padding: 2rem;
             border-radius: 10px;
             box-sizing: border-box;
-            width: 800px; /* Set width to 800px */
-            margin: 20px auto; /* Center the content horizontally */
+            width: 100%;
+            max-width: 800px;
             text-align: center;
-            /* Add box shadow */
             box-shadow: 0 0 3px #FF00EA;
-        }
-
-        /* Header styles */
-        header {
-            background-color: #85007A; /* Header background color */
-            color: #fff;
-            padding: 1rem 0;
-            border-radius: 10px 10px 0 0;
-            transition: background-color 0.3s ease; /* Smooth transition */
-            cursor: pointer; /* Change cursor to pointer on hover */
-        }
-
-        header:hover {
-            background-color: #9D0C93; /* Brighter color on hover */
-        }
-
-        header h1 {
-            margin: 0;
         }
 
         /* Section styles */
         section {
             margin-bottom: 2rem;
         }
-        
-        .rsfcontent {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
 
-        /* RockstarFans Logo VI Gradient */
-        .rsflogo {
-            font-size: 5rem;
-            font-weight: 700; /* You can adjust this value (100-900) */
-            background: linear-gradient(to bottom, #9158d8, #9158d8, #fb68a7, #f09a54, #f09a54);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Responsive iframe container */
         .iframe-container {
             position: relative;
             width: 100%;
@@ -123,99 +99,62 @@
             background-color: #006699;
         }
 
-        .vazirmatn-weight-400 {
-            font-family: 'Vazirmatn', sans-serif;
-            font-weight: 400;
-        }
-
-        /* Farsi text styles */
-        .vazirmatn-default {
-            font-family: 'Vazirmatn', sans-serif;
-            font-optical-sizing: auto;
-            font-weight: 600; /* Default weight */
-            font-style: normal;
-        }
-
         /* Footer styles */
         footer {
             color: #fff;
-            padding: 1rem 20px; /* Add padding for spacing from left and right edges */
+            padding: 1rem 20px;
             border-radius: 0 0 10px 10px;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%; /* Make footer take full width */
             display: flex;
-            justify-content: space-between; /* Distribute space between items */
+            justify-content: space-between;
             align-items: center;
-            box-sizing: border-box;
-            flex-wrap: wrap; /* Wrap content for responsiveness */
+            width: 100%;
+            max-width: 800px;
+            flex-wrap: wrap;
         }
 
         footer img {
-            width: 100px; /* Set initial width of the logo */
-            margin-right: 10px; /* Add spacing between logo and text */
-            max-width: 100%; /* Make sure the logo does not exceed its container */
+            width: 100px;
+            margin-right: 10px;
         }
 
         footer p {
             margin: 0;
-            font-size: 1rem; /* Default font size */
         }
 
         /* Responsive Styles */
         @media only screen and (max-width: 767px) {
             .content {
-                width: 90%; /* Set width to 90% for smaller screens */
+                width: 90%;
             }
 
             footer {
-                flex-direction: column; /* Stack items vertically */
-                align-items: center; /* Center items horizontally */
-                padding: 1rem; /* Add more padding to ensure no overlap */
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem;
             }
 
             footer img {
-                display: none; /* Hide the footer logo */
+                display: none;
             }
 
             footer p {
-                font-size: 0.875rem; /* Smaller font size */
+                font-size: 0.875rem;
             }
         }
 
         @media only screen and (max-width: 480px) {
-            .inner-wrapper {
-                width: calc(100% - 20px); /* Thinner frame size for mobile */
-                height: calc(100% - 20px); /* Thinner frame size for mobile */
-            }
-
             .content {
-                width: 95%; /* Set width to 95% for even smaller screens */
-            }
-
-            footer {
-                padding: 1rem 0.5rem; /* Adjust padding to ensure proper spacing */
+                width: 95%;
             }
 
             footer p {
-                font-size: 0.75rem; /* Even smaller font size */
+                font-size: 0.75rem;
             }
         }
-        /* CSS for the counter wrapper */
-            #counter-wrapper {
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                z-index: 9999; /* Ensure it's above other content */
-        }
-
     </style>
 </head>
 <body>
-        <div class="rsfcontent">
-        <div class="rsflogo">ROCKSTAR&nbspFANS</div>
-    </div>
+    <div class="rsflogo">ROCKSTAR&nbsp;FANS</div>
 
     <div class="inner-wrapper">
         <div class="content">         
@@ -225,8 +164,8 @@
                     <div class="iframe-container">
                         <img src="http://rockstarfans.com/img/gtavitrailerplay.webp" alt="GTA VI Trailer Thumbnail" id="thumbnail">
                     </div>
-                    <!-- Description in Farsi (RTL language) -->
-                    <p class="vazirmatn-default" dir="rtl">بازی Grand Theft Auto VI به ایالت Leonida می‌رود، و در بزرگترین و عظیم‌ترین تکامل نسخه GTA به خیابان‌های غلتیده در نئون Vice City می‌تازد.</p>
+                    <p class="vazirmatn-default" dir="rtl">بازی Grand Theft Auto VI به ایالت Leonida می‌رود، و در بزرگترین و عظیم‌ترین تکامل نسخه GTA به خیابان‌های غلتیده در نیون Vice City می‌تازد.
+                    </p>
                 </section>
 
                 <section id="telegram">
