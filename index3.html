@@ -18,6 +18,9 @@
             --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             --border-neon: #85007A;
             --section-bg: #fff;
+            --btn-bg: #e0e0e0;
+            --btn-active: #85007A;
+            --btn-active-text: #fff;
         }
 
         :root[data-theme="dark"] {
@@ -27,6 +30,9 @@
             --box-shadow: 0 0 15px rgba(255, 0, 234, 0.3);
             --border-neon: #FF00EA;
             --section-bg: #161424;
+            --btn-bg: #221f38;
+            --btn-active: #FF00EA;
+            --btn-active-text: #fff;
         }
 
         * {
@@ -156,11 +162,56 @@
             object-fit: cover;
         }
 
+        /* استایل‌های سیستم تب‌بندی و گالری هوشمند */
+        .gallery-filter-wrapper {
+            direction: rtl;
+            margin-top: 20px;
+        }
+
+        .main-tabs, .sub-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .filter-btn {
+            background: var(--btn-bg);
+            color: var(--text-color);
+            border: 1px solid transparent;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--border-neon);
+        }
+
+        .filter-btn.active {
+            background: var(--btn-active);
+            color: var(--btn-active-text);
+            box-shadow: 0 0 10px rgba(255, 0, 234, 0.4);
+        }
+
+        .sub-tabs {
+            border-right: 3px solid var(--border-neon);
+            padding-right: 10px;
+            display: none;
+        }
+
+        .sub-tabs.show {
+            display: flex;
+        }
+
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 15px;
             margin-top: 15px;
+            min-height: 150px;
         }
 
         .gallery-item {
@@ -169,8 +220,13 @@
             object-fit: cover;
             border-radius: 8px;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s;
             background: #222;
+            opacity: 0;
+        }
+
+        .gallery-item.loaded {
+            opacity: 1;
         }
 
         .gallery-item:hover {
@@ -198,7 +254,6 @@
             background-color: #006699;
         }
 
-        /* فوتر اصلاح شده برای تراز شدن عمودی در سمت چپ */
         footer {
             width: 100%;
             display: flex;
@@ -309,7 +364,6 @@
             <section id="about">
                 <p class="vazir-text">
                    بازی Grand Theft Auto VI به ایالت Leonida می‌رود، و در بزرگترین و عظیم‌ترین تکامل نسخه GTA به خیابان‌های غلتیده در نئون Vice City می‌تازد.
-
                 </p>
                 <p class="vazir-text" style="font-weight: 700; color: var(--border-neon);">
                     تاریخ انتشار: ۲۸ آبان ۱۴۰۵
@@ -333,17 +387,33 @@
             </section>
 
             <h2 dir="rtl">اسکرین‌شات‌های بازی</h2>
-            <section class="gallery-grid">
-                <img src="img/ss1.jpg" alt="GTA 6 Screenshot" class="gallery-item">
-                <img src="img/ss2.jpg" alt="GTA 6 Screenshot" class="gallery-item">
-                <img src="img/ss3.jpg" alt="GTA 6 Screenshot" class="gallery-item">
-                <img src="img/ss4.jpg" alt="GTA 6 Screenshot" class="gallery-item">
-            </section>
+            <section class="gallery-filter-wrapper">
+                <div class="main-tabs">
+                    <button class="filter-btn active" data-main="people">افراد (People)</button>
+                    <button class="filter-btn" data-main="places">مکان‌ها (Places)</button>
+                </div>
 
-            <h2 dir="rtl">آرت‌ورک‌های رسمی</h2>
-            <section class="gallery-grid">
-                <img src="img/art1.jpg" alt="GTA 6 Artwork" class="gallery-item">
-                <img src="img/art2.jpg" alt="GTA 6 Artwork" class="gallery-item">
+                <div class="sub-tabs show" id="sub-people">
+                    <button class="filter-btn active" data-sub="boobie_ike" data-count="4">Boobie Ike</button>
+                    <button class="filter-btn" data-sub="brian_heder" data-count="4">Brian Heder</button>
+                    <button class="filter-btn" data-sub="cal_hampton" data-count="4">Cal Hampton</button>
+                    <button class="filter-btn" data-sub="drequan_priest" data-count="4">Drequan Priest</button>
+                    <button class="filter-btn" data-sub="jason_duval" data-count="6">Jason Duval</button>
+                    <button class="filter-btn" data-sub="lucia_caminos" data-count="6">Lucia Caminos</button>
+                    <button class="filter-btn" data-sub="raul_bautista" data-count="4">Raul Bautista</button>
+                    <button class="filter-btn" data-sub="real_dimez" data-count="4">Real Dimez</button>
+                </div>
+
+                <div class="sub-tabs" id="sub-places">
+                    <button class="filter-btn" data-sub="ambrosia" data-count="5">Ambrosia</button>
+                    <button class="filter-btn" data-sub="grassrivers" data-count="4">Grassrivers</button>
+                    <button class="filter-btn" data-sub="leonida_keys" data-count="5">Leonida Keys</button>
+                    <button class="filter-btn" data-sub="mount_kalaga" data-count="6">Mount Kalaga</button>
+                    <button class="filter-btn" data-sub="port_gellhorn" data-count="5">Port Gellhorn</button>
+                    <button class="filter-btn" data-sub="vice_city" data-count="9">Vice City</button>
+                </div>
+
+                <div class="gallery-grid" id="galleryGrid"></div>
             </section>
 
             <section id="telegram">
@@ -367,6 +437,7 @@
         const lightboxContent = document.getElementById('lightbox-content');
         const closeLightboxBtn = document.getElementById('closeLightboxBtn');
 
+        // باز کردن تریلر در لایت باکس
         document.querySelectorAll('.video-thumb').forEach(thumb => {
             thumb.addEventListener('click', function() {
                 var videoId = this.getAttribute('data-video-id');
@@ -379,13 +450,77 @@
             });
         });
 
-        document.querySelectorAll('.gallery-item').forEach(img => {
-            img.addEventListener('click', () => {
-                lightboxContent.innerHTML = `<img src="${img.src}" alt="Enlarged view">`;
-                lightbox.showModal();
+        // سیستم فیلترینگ و رندر گالری هوشمند
+        const galleryGrid = document.getElementById('galleryGrid');
+        const mainBtns = document.querySelectorAll('.main-tabs .filter-btn');
+        const subPanels = document.querySelectorAll('.sub-tabs');
+
+        let currentMainCategory = 'people';
+        let currentSubCategory = 'boobie_ike';
+        let currentImgCount = 4;
+
+        function renderGallery() {
+            galleryGrid.innerHTML = '';
+            const folderPath = `img/screenshots/${currentMainCategory}/${currentSubCategory}`;
+
+            for (let i = 1; i <= currentImgCount; i++) {
+                const img = document.createElement('img');
+                img.src = `${folderPath}/${i}.jpg`;
+                img.alt = `${currentSubCategory} screenshot ${i}`;
+                img.className = 'gallery-item';
+                img.loading = 'lazy'; // لود هوشمند برای افزایش سرعت صفحه
+                
+                img.addEventListener('load', () => img.classList.add('loaded'));
+                img.addEventListener('click', () => {
+                    lightboxContent.innerHTML = `<img src="${img.src}" alt="Enlarged view">`;
+                    lightbox.showModal();
+                });
+
+                galleryGrid.appendChild(img);
+            }
+        }
+
+        // سوئیچ بین دسته‌های اصلی (افراد / مکان‌ها)
+        mainBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                mainBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                currentMainCategory = btn.getAttribute('data-main');
+                
+                subPanels.forEach(p => p.classList.remove('show'));
+                const activeSubPanel = document.getElementById(`sub-${currentMainCategory}`);
+                activeSubPanel.classList.add('show');
+
+                const firstSubBtn = activeSubPanel.querySelector('.filter-btn');
+                activeSubPanel.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                firstSubBtn.classList.add('active');
+
+                currentSubCategory = firstSubBtn.getAttribute('data-sub');
+                currentImgCount = parseInt(firstSubBtn.getAttribute('data-count'));
+
+                renderGallery();
             });
         });
 
+        // سوئیچ بین زیرمجموعه‌ها
+        document.querySelectorAll('.sub-tabs .filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const parent = btn.parentElement;
+                parent.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                currentSubCategory = btn.getAttribute('data-sub');
+                currentImgCount = parseInt(btn.getAttribute('data-count'));
+
+                renderGallery();
+            });
+        });
+
+        // رندر اولیه زمان لود صفحه
+        renderGallery();
+
+        // بستن لایت‌باکس
         closeLightboxBtn.addEventListener('click', () => {
             lightboxContent.innerHTML = '';
             lightbox.close();
@@ -398,6 +533,7 @@
             }
         });
 
+        // سیستم سوئیچ تم
         const themeBtn = document.getElementById('themeBtn');
         const htmlEl = document.documentElement;
 
