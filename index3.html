@@ -162,7 +162,6 @@
             object-fit: cover;
         }
 
-        /* استایل‌های سیستم تب‌بندی و گالری هوشمند */
         .gallery-filter-wrapper {
             direction: rtl;
             margin-top: 20px;
@@ -363,7 +362,7 @@
         <main>
             <section id="about">
                 <p class="vazir-text">
-                   بازی Grand Theft Auto VI به ایالت Leonida می‌رود، و در بزرگترین و عظیم‌ترین تکامل نسخه GTA به خیابان‌های غلتیده در نئون Vice City می‌تازد.
+                   بازی Grand Theft Auto VI به ایالت Leonida می‌رود، و در بزرگترین و عظیم‌ترین تکامل نسخه GTA به خیابان‌های غلتیده in نئون Vice City می‌تازد.
                 </p>
                 <p class="vazir-text" style="font-weight: 700; color: var(--border-neon);">
                     تاریخ انتشار: ۲۸ آبان ۱۴۰۵
@@ -437,7 +436,6 @@
         const lightboxContent = document.getElementById('lightbox-content');
         const closeLightboxBtn = document.getElementById('closeLightboxBtn');
 
-        // باز کردن تریلر در لایت باکس
         document.querySelectorAll('.video-thumb').forEach(thumb => {
             thumb.addEventListener('click', function() {
                 var videoId = this.getAttribute('data-video-id');
@@ -450,7 +448,6 @@
             });
         });
 
-        // سیستم فیلترینگ و رندر گالری هوشمند
         const galleryGrid = document.getElementById('galleryGrid');
         const mainBtns = document.querySelectorAll('.main-tabs .filter-btn');
         const subPanels = document.querySelectorAll('.sub-tabs');
@@ -461,18 +458,21 @@
 
         function renderGallery() {
             galleryGrid.innerHTML = '';
-            const folderPath = `img/screenshots/${currentMainCategory}/${currentSubCategory}`;
+            const basePath = `img/screenshots/${currentMainCategory}/${currentSubCategory}`;
 
             for (let i = 1; i <= currentImgCount; i++) {
                 const img = document.createElement('img');
-                img.src = `${folderPath}/${i}.jpg`;
+                
+                // لود نسخه سبک و تیوتیورال دکمه پیش‌نمایش در صفحه اصلی
+                img.src = `${basePath}/thumbs/${i}.webp`;
                 img.alt = `${currentSubCategory} screenshot ${i}`;
                 img.className = 'gallery-item';
-                img.loading = 'lazy'; // لود هوشمند برای افزایش سرعت صفحه
+                img.loading = 'lazy';
                 
                 img.addEventListener('load', () => img.classList.add('loaded'));
                 img.addEventListener('click', () => {
-                    lightboxContent.innerHTML = `<img src="${img.src}" alt="Enlarged view">`;
+                    // لود نسخه اصلی، بزرگ و باکیفیت ۴کی در لایت‌باکس
+                    lightboxContent.innerHTML = `<img src="${basePath}/${i}.jpg" alt="Enlarged view">`;
                     lightbox.showModal();
                 });
 
@@ -480,7 +480,6 @@
             }
         }
 
-        // سوئیچ بین دسته‌های اصلی (افراد / مکان‌ها)
         mainBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 mainBtns.forEach(b => b.classList.remove('active'));
@@ -503,7 +502,6 @@
             });
         });
 
-        // سوئیچ بین زیرمجموعه‌ها
         document.querySelectorAll('.sub-tabs .filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const parent = btn.parentElement;
@@ -517,10 +515,8 @@
             });
         });
 
-        // رندر اولیه زمان لود صفحه
         renderGallery();
 
-        // بستن لایت‌باکس
         closeLightboxBtn.addEventListener('click', () => {
             lightboxContent.innerHTML = '';
             lightbox.close();
@@ -533,7 +529,6 @@
             }
         });
 
-        // سیستم سوئیچ تم
         const themeBtn = document.getElementById('themeBtn');
         const htmlEl = document.documentElement;
 
