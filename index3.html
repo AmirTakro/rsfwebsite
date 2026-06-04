@@ -11,8 +11,9 @@
     <meta name="description" content="Rockstar Fans, first Persian Rockstar Games fan page since 2011.">
 
     <style>
+        /* تعریف متغیرهای رنگی برای سوییچ تم */
         :root[data-theme="light"] {
-            --bg-overlay: rgba(10, 10, 10, 0.2);
+            --bg-overlay: rgba(244, 244, 249, 0.4);
             --wrapper-bg: rgba(255, 255, 255, 0.9);
             --text-color: #222;
             --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -21,7 +22,7 @@
         }
 
         :root[data-theme="dark"] {
-            --bg-overlay: rgba(11, 9, 20, 0.0);
+            --bg-overlay: rgba(11, 9, 20, 0.75);
             --wrapper-bg: rgba(18, 16, 28, 0.85);
             --text-color: #f1f1f5;
             --box-shadow: 0 0 15px rgba(255, 0, 234, 0.3);
@@ -47,6 +48,7 @@
             padding-bottom: 60px;
         }
 
+        /* لایه روی بک‌گراند برای تنظیم روشنایی و تاریکی کلی سایت */
         body::before {
             content: "";
             position: absolute;
@@ -56,11 +58,13 @@
             transition: background 0.3s;
         }
 
+        /* مطمئن شدن از قرارگیری محتوا بالای لایه بک‌گراند */
         .theme-toggle, .rsflogo, .content-wrapper, dialog {
             position: relative;
             z-index: 2;
         }
 
+        /* دکمه سوییچ تم با آیکون */
         .theme-toggle {
             position: fixed;
             top: 20px;
@@ -81,17 +85,19 @@
             transition: background 0.3s, border-color 0.3s;
         }
 
+        /* لوگوی اصلی بالای صفحه */
         .rsflogo {
             text-align: center;
             margin: 40px 0 20px 0;
-            font-size: 5vw;
-            font-weight: 700;
-            background: linear-gradient(to bottom, #9158d8, #9158d8, #fb68a7, #f09a54, #f09a54);
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(to bottom, #9158d8, #fb68a7, #f09a54);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: 2px;
         }
 
+        /* باکس اصلی محتوا */
         .content-wrapper {
             width: 90%;
             max-width: 900px;
@@ -105,6 +111,7 @@
             transition: background 0.3s, box-shadow 0.3s;
         }
 
+        /* استایل‌های متن فارسی */
         .vazir-text {
             line-height: 1.8;
             text-align: justify;
@@ -119,6 +126,7 @@
             transition: border-color 0.3s;
         }
 
+        /* بخش تریلرها (چیدمان دو ستونه) */
         .trailers-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -152,6 +160,7 @@
             object-fit: cover;
         }
 
+        /* بخش گالری‌ها (اسکرین‌شات و آرت‌ورک) */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -174,6 +183,7 @@
             box-shadow: 0 4px 10px rgba(255, 0, 234, 0.4);
         }
 
+        /* تلگرام */
         #telegram {
             text-align: center;
             margin: 3rem 0 1rem 0;
@@ -194,11 +204,11 @@
             background-color: #006699;
         }
 
-        /* فوتر اصلاح شده: قرارگیری لوگو در سمت چپ و متن در سمت راست */
+        /* فوتر ریسپانسیو */
         footer {
             width: 100%;
             display: flex;
-            flex-direction: row;
+            flex-direction: row-reverse;
             justify-content: space-between;
             align-items: center;
             padding: 15px 0 0 0;
@@ -209,46 +219,29 @@
         footer img {
             width: 90px;
             height: auto;
-            margin-right: 10px;
+            margin-left: 10px;
         }
 
         footer p {
             margin: 0;
             font-size: 0.9rem;
             opacity: 0.7;
-            margin-left: 10px;
+            margin-right: 10px;
         }
 
+        /* سیستم لایت‌باکس بومی مرورگر برای بزرگ‌نمایی عکس‌ها */
         dialog {
             padding: 0;
             border: none;
             border-radius: 8px;
             background: transparent;
-            width: 85vw;
-            max-width: 960px;
+            max-width: 90vw;
+            max-height: 90vh;
         }
 
         dialog::backdrop {
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(5px);
-        }
-
-        /* باکس نگه‌دارنده ویدیو در لایت‌باکس برای حفظ نسبت تصویر ۱۶:۹ */
-        .lightbox-video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; 
-            height: 0;
-            background: #000;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .lightbox-video-container iframe {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            border: 0;
         }
 
         dialog img {
@@ -256,21 +249,20 @@
             max-height: 85vh;
             display: block;
             border-radius: 8px;
-            margin: 0 auto;
         }
 
-        .close-btn {
+        dialog button {
             background: var(--border-neon);
             color: white;
             border: none;
-            padding: 6px 20px;
-            margin: 12px auto 0 auto;
+            padding: 5px 15px;
+            margin: 10px auto;
             display: block;
             border-radius: 4px;
             cursor: pointer;
-            font-weight: bold;
         }
 
+        /* ریسپانسیو برای تبلت و موبایل */
         @media only screen and (max-width: 768px) {
             .rsflogo {
                 font-size: 2.5rem;
@@ -291,19 +283,16 @@
                 font-size: 2rem;
             }
             footer {
-                flex-direction: row;
+                flex-direction: row-reverse;
                 justify-content: space-between;
                 align-items: center;
                 width: 100%;
             }
             footer img {
-                margin-right: 5px;
-            }
-            footer p {
                 margin-left: 5px;
             }
-            dialog {
-                width: 95vw;
+            footer p {
+                margin-right: 5px;
             }
         }
     </style>
@@ -367,51 +356,40 @@
     </div>
 
     <dialog id="lightbox">
-        <div id="lightbox-content"></div>
-        <button class="close-btn" id="closeLightboxBtn">بستن</button>
+        <img src="" alt="Enlarged view">
+        <button onclick="document.getElementById('lightbox').close()">بستن</button>
     </dialog>
 
     <script>
-        const lightbox = document.getElementById('lightbox');
-        const lightboxContent = document.getElementById('lightbox-content');
-        const closeLightboxBtn = document.getElementById('closeLightboxBtn');
-
-        // مدیریت کلیک روی تریلرها (نمایش آی‌فریم در لایت‌باکس)
         document.querySelectorAll('.video-thumb').forEach(thumb => {
             thumb.addEventListener('click', function() {
                 var videoId = this.getAttribute('data-video-id');
-                lightboxContent.innerHTML = `
-                    <div class="lightbox-video-container">
-                        <iframe src="https://drive.google.com/file/d/${videoId}/preview" allow="autoplay" allowfullscreen></iframe>
-                    </div>
-                `;
-                lightbox.showModal();
+                var iframe = document.createElement('iframe');
+                iframe.setAttribute('src', 'https://drive.google.com/file/d/' + videoId + '/preview');
+                iframe.setAttribute('allow', 'autoplay');
+                iframe.style.position = 'absolute';
+                iframe.style.top = '0';
+                iframe.style.left = '0';
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                iframe.style.border = '0';
+
+                var container = this.parentNode;
+                container.innerHTML = '';
+                container.appendChild(iframe);
             });
         });
 
-        // مدیریت کلیک روی عکس‌های گالری
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = lightbox.querySelector('img');
+        
         document.querySelectorAll('.gallery-item').forEach(img => {
             img.addEventListener('click', () => {
-                lightboxContent.innerHTML = `<img src="${img.src}" alt="Enlarged view">`;
+                lightboxImg.src = img.src;
                 lightbox.showModal();
             });
         });
 
-        // بستن لایت‌باکس و خالی کردن محتوا برای متوقف شدن ویدیو
-        closeLightboxBtn.addEventListener('click', () => {
-            lightboxContent.innerHTML = '';
-            lightbox.close();
-        });
-
-        // بستن با کلیک روی بک‌دراپ (فضای خالی پشت لایت‌باکس)
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) {
-                lightboxContent.innerHTML = '';
-                lightbox.close();
-            }
-        });
-
-        // سیستم سوییچ تم
         const themeBtn = document.getElementById('themeBtn');
         const htmlEl = document.documentElement;
 
