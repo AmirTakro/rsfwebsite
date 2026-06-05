@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rockstar Fans | #GTAVI News</title>
-	<link rel="icon" type="image/png" href="/img/favicon.png">
+    
+    <link rel="icon" type="image/png" href="/img/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
-    <meta name="keywords" content="GTAVI, GTA VI, GTA 6, GTA6, GTA VI Trailer, GTA6 Trailer, Grand Theft Auto VI, Grand Theft Auto VI Trailer, Grand Theft Auto 6, Grand Theft Auto 6 Trailer, تریلر gta 6, تریلر gta6, تریلr gta, تریلر گتا, اخبار gta 6, اخبار gta, راکستار فنز, راکستار فنس, گروه هواداران راکستار">
-    <meta name="description" content="Rockstar Fans, first Persian Rockstar Games fan page since 2011.">
+    <meta name="description" content="Rockstar Fans, first Persian Rockstar Games fan page since 2011. Latest Grand Theft Auto VI screenshots and trailers.">
 
     <style>
         :root[data-theme="light"] {
@@ -215,7 +215,6 @@
             box-shadow: 0 0 10px rgba(255, 0, 234, 0.4);
         }
 
-        /* استایل جدید برای زمانی که دکمه اصلی به خاطر انتخاب زیرمجموعه باید کمرنگ شود */
         .filter-btn.active.dimmed {
             background: var(--btn-active);
             opacity: 0.6;
@@ -386,7 +385,7 @@
 
     <button class="theme-toggle" id="themeBtn">🌙</button>
 
-    <div class="rsflogo">ROCKSTAR FANS</div>
+    <h1 class="rsflogo">ROCKSTAR FANS</h1>
 
     <div class="content-wrapper">         
         <main>
@@ -407,13 +406,13 @@
                 <div class="trailer-box">
                     <h3>Grand Theft Auto VI Trailer 1</h3>
                     <div class="iframe-container">
-                        <img src="/img/gtavitrailer1thumb.webp" alt="GTA VI Trailer 1 Thumbnail" class="video-thumb" data-video-id="1wRuw1TvAqcPKUWkMbKUmpeI6sGvBDT_4">
+                        <img src="/img/gtavitrailer1thumb.webp" alt="GTA VI Trailer 1" class="video-thumb" data-video-id="1wRuw1TvAqcPKUWkMbKUmpeI6sGvBDT_4">
                     </div>
                 </div>
                 <div class="trailer-box">
                     <h3>Grand Theft Auto VI Trailer 2</h3>
                     <div class="iframe-container">
-                        <img src="/img/gtavitrailer2thumb.webp" alt="GTA VI Trailer 2 Thumbnail" class="video-thumb" data-video-id="1AQkl3U794b47E5312_LrleIvRMNeVYzk">
+                        <img src="/img/gtavitrailer2thumb.webp" alt="GTA VI Trailer 2" class="video-thumb" data-video-id="1AQkl3U794b47E5312_LrleIvRMNeVYzk">
                     </div>
                 </div>
             </section>
@@ -515,7 +514,7 @@
             btn.addEventListener('click', () => {
                 mainBtns.forEach(b => {
                     b.classList.remove('active');
-                    b.classList.remove('dimmed'); // پاک کردن حالت کمرنگ هنگام جابجایی بین کتگوری‌های اصلی
+                    b.classList.remove('dimmed');
                 });
                 btn.classList.add('active');
 
@@ -542,7 +541,6 @@
                 parent.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
 
-                // پیدا کردن دکمه اصلی مربوطه و اضافه کردن کلاس کمرنگ‌کننده
                 const activeMainBtn = document.querySelector(`.main-tabs .filter-btn[data-main="${currentMainCategory}"]`);
                 if (activeMainBtn) {
                     activeMainBtn.classList.add('dimmed');
