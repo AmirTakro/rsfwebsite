@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
-    <meta name="keywords" content="GTAVI, GTA VI, GTA 6, GTA6, GTA VI Trailer, GTA6 Trailer, Grand Theft Auto VI, Grand Theft Auto VI Trailer, Grand Theft Auto 6, Grand Theft Auto 6 Trailer, تریلر gta 6, تریلر gta6, تریلر gta, تریلر گتا, اخبار gta 6, اخبار gta, راکستار فنز, راکستار فنس, گروه هواداران راکستار">
+    <meta name="keywords" content="GTAVI, GTA VI, GTA 6, GTA6, GTA VI Trailer, GTA6 Trailer, Grand Theft Auto VI, Grand Theft Auto VI Trailer, Grand Theft Auto 6, Grand Theft Auto 6 Trailer, تریلر gta 6, تریلر gta6, تریلr gta, تریلر گتا, اخبار gta 6, اخبار gta, راکستار فنز, راکستار فنس, گروه هواداران راکستار">
     <meta name="description" content="Rockstar Fans, first Persian Rockstar Games fan page since 2011.">
 
     <style>
@@ -110,6 +110,26 @@
             backdrop-filter: blur(8px);
             margin-bottom: 40px;
             transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        /* استایل اختصاصی برای لوگوی افقی غیرقابل تعامل */
+        .promo-logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            width: 100%;
+        }
+
+        .promo-logo-container img {
+            max-width: 1280px;
+            width: 100%;
+            height: auto;
+            display: block;
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
         }
 
         .vazir-text {
@@ -340,6 +360,9 @@
             .gallery-grid {
                 grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
             }
+            .promo-logo-container img {
+                max-width: 220px;
+            }
         }
 
         @media only screen and (max-width: 480px) {
@@ -361,6 +384,10 @@
     <div class="content-wrapper">         
         <main>
             <section id="about">
+                <div class="promo-logo-container">
+                    <img src="/img/vi/gtavihorizontallogo.webp" alt="GTA VI Horizontal Logo" oncontextmenu="return false;" draggablereset="true" draggable="false">
+                </div>
+
                 <p class="vazir-text">
 جیسون و لوسیا همیشه می‌دانستند که ورق‌ها علیه‌شان بازی می‌شود. اما وقتی یک سرقت ساده به طرز وحشتناکی به بیراهه می‌رود، ناگهان خود را در تاریک‌ترین گوشه‌ی آفتابی‌ترین جای آمریکا می‌یابند؛ در میانه‌ی توطئه‌ای گسترده در سراسر ایالت لئونیدا، جایی که برای زنده ماندن، بیش از همیشه مجبورند به یکدیگر تکیه کنند.                </p>
                 <p class="vazir-text" style="font-weight: 700; color: var(--border-neon);">
@@ -462,7 +489,6 @@
             for (let i = 1; i <= currentImgCount; i++) {
                 const img = document.createElement('img');
                 
-                // لود نسخه سبک و تیوتیورال دکمه پیش‌نمایش در صفحه اصلی
                 img.src = `${basePath}/thumbs/${i}.webp`;
                 img.alt = `${currentSubCategory} screenshot ${i}`;
                 img.className = 'gallery-item';
@@ -470,7 +496,6 @@
                 
                 img.addEventListener('load', () => img.classList.add('loaded'));
                 img.addEventListener('click', () => {
-                    // لود نسخه اصلی، بزرگ و باکیفیت ۴کی در لایت‌باکس
                     lightboxContent.innerHTML = `<img src="${basePath}/${i}.jpg" alt="Enlarged view">`;
                     lightbox.showModal();
                 });
