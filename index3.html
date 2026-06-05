@@ -112,7 +112,6 @@
             transition: background 0.3s, box-shadow 0.3s;
         }
 
-        /* استایل اختصاصی برای لوگوی افقی غیرقابل تعامل */
         .promo-logo-container {
             display: flex;
             justify-content: center;
@@ -213,6 +212,13 @@
             background: var(--btn-active);
             color: var(--btn-active-text);
             box-shadow: 0 0 10px rgba(255, 0, 234, 0.4);
+        }
+
+        /* استایل جدید برای زمانی که دکمه اصلی به خاطر انتخاب زیرمجموعه باید کمرنگ شود */
+        .filter-btn.active.dimmed {
+            background: var(--btn-active);
+            opacity: 0.6;
+            box-shadow: none;
         }
 
         .sub-tabs {
@@ -506,7 +512,10 @@
 
         mainBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                mainBtns.forEach(b => b.classList.remove('active'));
+                mainBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.classList.remove('dimmed'); // پاک کردن حالت کمرنگ هنگام جابجایی بین کتگوری‌های اصلی
+                });
                 btn.classList.add('active');
 
                 currentMainCategory = btn.getAttribute('data-main');
@@ -531,6 +540,12 @@
                 const parent = btn.parentElement;
                 parent.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
+
+                // پیدا کردن دکمه اصلی مربوطه و اضافه کردن کلاس کمرنگ‌کننده
+                const activeMainBtn = document.querySelector(`.main-tabs .filter-btn[data-main="${currentMainCategory}"]`);
+                if (activeMainBtn) {
+                    activeMainBtn.classList.add('dimmed');
+                }
 
                 currentSubCategory = btn.getAttribute('data-sub');
                 currentImgCount = parseInt(btn.getAttribute('data-count'));
