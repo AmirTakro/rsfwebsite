@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="fa" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rockstar Fans | #GTAVI News</title>
+    
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <meta name="description" content="Rockstar Fans, first Persian Rockstar Games fan page since 2011. Latest Grand Theft Auto VI screenshots and trailers.">
+
+    <style>
+		@font-face {
+			font-family: 'Vazirmatn';
+			src: url('/fonts/vazirmatn/Vazirmatn[wght].woff2') format('woff2-supports-variations'),
+			     url('/fonts/vazirmatn/Vazirmatn[wght].woff2') format('woff2');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+		}
+		
+        :root[data-theme="light"] {
+            --bg-overlay: rgba(255, 255, 255, 0.2);
+            --glass-bg: rgba(255, 255, 255, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --glass-border-bottom: rgba(0, 0, 0, 0.05);
+            --glass-box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+            --text-color: #1c1c1e;
+            --text-muted: #6e6e73;
+            --accent-glow: rgba(133, 0, 122, 0.15);
+            --border-neon: #85007A;
+            --btn-glass: rgba(255, 255, 255, 0.4);
+            --btn-glass-hover: rgba(255, 255, 255, 0.7);
+            --btn-active: #85007A;
+            --btn-active-text: #ffffff;
+        }
+
+        :root[data-theme="dark"] {
+            --bg-overlay: rgba(0, 0, 0, 0.35);
+            --glass-bg: rgba(20, 18, 30, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass-border-bottom: rgba(0, 0, 0, 0.5);
+            --glass-box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+            --text-color: #f5f5f7;
+            --text-muted: #a1a1a6;
+            --accent-glow: rgba(255, 0, 234, 0.25);
+            --border-neon: #FF00EA;
+            --btn-glass: rgba(255, 255, 255, 0.08);
+            --btn-glass-hover: rgba(255, 255, 255, 0.18);
+            --btn-active: #FF00EA;
+            --btn-active-text: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('/img/bg4.webp') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 60px;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg-overlay);
+            z-index: 1;
+            transition: background 0.4s ease;
+            pointer-events: none;
+        }
+
+        .theme-toggle, .rsflogo, .content-wrapper, dialog {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Apple Liquid Glass Floating Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border-bottom);
+            color: var(--text-color);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10000;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--glass-box-shadow);
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), background 0.3s, border-color 0.3s;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.08);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+
+        .rsflogo {
+            text-align: center;
+            margin: 45px 0 25px 0;
+            font-size: clamp(2rem, 5vw, 3.8rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #a862ea, #f168a7, #f39c59);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+        }
+
+        /* Main Glass Container */
+        .content-wrapper {
+            width: 90%;
+            max-width: 960px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            padding: 3rem;
+            border-radius: 28px;
+            box-shadow: var(--glass-box-shadow);
+            border: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border-bottom);
+            margin-bottom: 40px;
+            transition: background 0.4s ease, border 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .promo-logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+
+        .promo-logo-container img {
+            max-width: 100%;
+            width: 480px;
+            height: auto;
+            display: block;
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-select: none;
+            filter: drop-shadow(0 8px 24px rgba(0,0,0,0.25));
+        }
+
+        .vazir-text {
+            line-height: 1.85;
+            text-align: justify;
+            direction: rtl;
+            color: var(--text-color);
+            font-size: 1.05rem;
+            font-weight: 400;
+        }
+
+        h2 {
+            display: flex;
+            align-items: center;
+            padding-bottom: 10px;
+            margin-top: 2.5rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-color);
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--border-neon);
+            border-radius: 3px;
+            box-shadow: 0 0 10px var(--border-neon);
+        }
+
+        .trailers-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        .trailer-box h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-muted);
+            direction: ltr;
+            text-align: left;
+        }
+
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 16px;
+            background: #000;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            border: 1px solid var(--glass-border);
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+        }
+
+        .iframe-container:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.35), 0 0 15px var(--accent-glow);
+        }
+
+        .iframe-container iframe, .iframe-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            cursor: pointer;
+            object-fit: cover;
+        }
+
+        .gallery-filter-wrapper {
+            direction: rtl;
+            margin-top: 20px;
+        }
+
+        .main-tabs, .sub-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        /* Glass Capsule Buttons */
+        .filter-btn {
+            background: var(--btn-glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: var(--text-color);
+            border: 1px solid var(--glass-border);
+            padding: 8px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .filter-btn:hover {
+            background: var(--btn-glass-hover);
+            transform: translateY(-1px);
+        }
+
+        .filter-btn.active {
+            background: var(--btn-active);
+            color: var(--btn-active-text);
+            border-color: transparent;
+            box-shadow: 0 4px 15px var(--accent-glow);
+            font-weight: 600;
+        }
+
+        .filter-btn.active.dimmed {
+            background: var(--btn-active);
+            opacity: 0.65;
+            box-shadow: none;
+        }
+
+        .sub-tabs {
+            border-right: 2px solid var(--border-neon);
+            padding-right: 14px;
+            display: none;
+        }
+
+        .sub-tabs.show {
+            display: flex;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+            min-height: 150px;
+        }
+
+        .gallery-item {
+            width: 100%;
+            height: 135px;
+            object-fit: cover;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, opacity 0.4s ease;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+            opacity: 0;
+        }
+
+        .gallery-item.loaded {
+            opacity: 1;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.04) translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25), 0 0 12px var(--accent-glow);
+        }
+
+        #telegram {
+            text-align: center;
+            margin: 3.5rem 0 1rem 0;
+        }
+
+        #telegram a {
+            display: inline-block;
+            padding: 0.8rem 2.2rem;
+            background: linear-gradient(135deg, #0088cc, #00aaff);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 6px 20px rgba(0, 136, 204, 0.35);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        #telegram a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 136, 204, 0.5);
+        }
+
+        footer {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 20px 0 0 0;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 30px;
+        }
+
+        footer img {
+            width: 85px;
+            height: auto;
+            margin-bottom: 8px;
+            opacity: 0.85;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Glass Dialog Modal */
+        dialog {
+            padding: 20px;
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(30px) saturate(200%);
+            -webkit-backdrop-filter: blur(30px) saturate(200%);
+            width: 85vw;
+            max-width: 960px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        dialog::backdrop {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .lightbox-video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; 
+            height: 0;
+            background: #000;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .lightbox-video-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: 0;
+        }
+
+        dialog img {
+            max-width: 100%;
+            max-height: 75vh;
+            display: block;
+            border-radius: 14px;
+            margin: 0 auto;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        .close-btn {
+            background: var(--btn-glass);
+            color: var(--text-color);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            padding: 8px 28px;
+            margin: 16px auto 0 auto;
+            display: block;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .close-btn:hover {
+            background: var(--border-neon);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .trailers-grid {
+                grid-template-columns: 1fr;
+            }
+            .content-wrapper {
+                padding: 1.8rem;
+                border-radius: 20px;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+                gap: 12px;
+            }
+            .gallery-item {
+                height: 110px;
+            }
+            .promo-logo-container img {
+                max-width: 240px;
+            }
+            .theme-toggle {
+                top: 16px;
+                right: 16px;
+                width: 42px;
+                height: 42px;
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            .content-wrapper {
+                width: 94%;
+                padding: 1.2rem;
+            }
+            dialog {
+                width: 92vw;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="theme-toggle" id="themeBtn" aria-label="Toggle Theme">🌙</button>
+
+    <h1 class="rsflogo">ROCKSTAR FANS</h1>
+
+    <div class="content-wrapper">         
+        <main>
+            <section id="about">
+                <div class="promo-logo-container">
+                    <img src="/img/vi/gtavihorizontallogo.webp" alt="GTA VI Horizontal Logo" oncontextmenu="return false;" draggablereset="true" draggable="false">
+                </div>
+
+                <p class="vazir-text">
+جیسون و لوسیا همیشه می‌دانستند که ورق‌ها علیه‌شان بازی می‌شود. اما وقتی یک سرقت ساده به طرز وحشتناکی به بیراهه می‌رود، ناگهان خود را در تاریک‌ترین گوشه‌ی آفتابی‌ترین جای آمریکا می‌یابند؛ در میانه‌ی توطئه‌ای گسترده در سراسر ایالت لئونیدا، جایی که برای زنده ماندن، بیش از همیشه مجبورند به یکدیگر تکیه کنند.                </p>
+                <p class="vazir-text" style="font-weight: 700; color: var(--border-neon);">
+                    تاریخ انتشار: ۲۸ آبان ۱۴۰۵
+                </p>
+            </section>
+
+            <h2 dir="rtl">تریلرهای رسمی</h2>
+            <section class="trailers-grid">
+                <div class="trailer-box">
+                    <h3>Grand Theft Auto VI Trailer 1</h3>
+                    <div class="iframe-container">
+                        <img src="/img/gtavitrailer1thumb.webp" alt="GTA VI Trailer 1" class="video-thumb" data-video-id="1wRuw1TvAqcPKUWkMbKUmpeI6sGvBDT_4">
+                    </div>
+                </div>
+                <div class="trailer-box">
+                    <h3>Grand Theft Auto VI Trailer 2</h3>
+                    <div class="iframe-container">
+                        <img src="/img/gtavitrailer2thumb.webp" alt="GTA VI Trailer 2" class="video-thumb" data-video-id="1AQkl3U794b47E5312_LrleIvRMNeVYzk">
+                    </div>
+                </div>
+            </section>
+
+            <h2 dir="rtl">اسکرین‌شات‌های بازی</h2>
+            <section class="gallery-filter-wrapper">
+                <div class="main-tabs">
+                    <button class="filter-btn active" data-main="people">افراد (People)</button>
+                    <button class="filter-btn" data-main="places">مکان‌ها (Places)</button>
+                </div>
+
+                <div class="sub-tabs show" id="sub-people">
+                    <button class="filter-btn active" data-sub="boobie_ike" data-count="4">Boobie Ike</button>
+                    <button class="filter-btn" data-sub="brian_heder" data-count="4">Brian Heder</button>
+                    <button class="filter-btn" data-sub="cal_hampton" data-count="4">Cal Hampton</button>
+                    <button class="filter-btn" data-sub="drequan_priest" data-count="4">Drequan Priest</button>
+                    <button class="filter-btn" data-sub="jason_duval" data-count="6">Jason Duval</button>
+                    <button class="filter-btn" data-sub="lucia_caminos" data-count="6">Lucia Caminos</button>
+                    <button class="filter-btn" data-sub="raul_bautista" data-count="4">Raul Bautista</button>
+                    <button class="filter-btn" data-sub="real_dimez" data-count="4">Real Dimez</button>
+                </div>
+
+                <div class="sub-tabs" id="sub-places">
+                    <button class="filter-btn" data-sub="ambrosia" data-count="5">Ambrosia</button>
+                    <button class="filter-btn" data-sub="grassrivers" data-count="4">Grassrivers</button>
+                    <button class="filter-btn" data-sub="leonida_keys" data-count="5">Leonida Keys</button>
+                    <button class="filter-btn" data-sub="mount_kalaga" data-count="6">Mount Kalaga</button>
+                    <button class="filter-btn" data-sub="port_gellhorn" data-count="5">Port Gellhorn</button>
+                    <button class="filter-btn" data-sub="vice_city" data-count="9">Vice City</button>
+                </div>
+
+                <div class="gallery-grid" id="galleryGrid"></div>
+            </section>
+
+            <section id="telegram">
+                <a href="https://t.me/rockstarfans" target="_blank">@RockstarFans on Telegram</a>
+            </section>
+        </main>
+        
+        <footer>
+            <img src="/img/logo-colored.png" alt="Rockstar Fans">
+            <p>&copy; 2011-2026</p>
+        </footer>
+    </div>
+
+    <dialog id="lightbox">
+        <div id="lightbox-content"></div>
+        <button class="close-btn" id="closeLightboxBtn">بستن</button>
+    </dialog>
+
+    <script>
+        const lightbox = document.getElementById('lightbox');
+        const lightboxContent = document.getElementById('lightbox-content');
+        const closeLightboxBtn = document.getElementById('closeLightboxBtn');
+
+        document.querySelectorAll('.video-thumb').forEach(thumb => {
+            thumb.addEventListener('click', function() {
+                var videoId = this.getAttribute('data-video-id');
+                lightboxContent.innerHTML = `
+                    <div class="lightbox-video-container">
+                        <iframe src="https://drive.google.com/file/d/${videoId}/preview" allow="autoplay" allowfullscreen></iframe>
+                    </div>
+                `;
+                lightbox.showModal();
+            });
+        });
+
+        const galleryGrid = document.getElementById('galleryGrid');
+        const mainBtns = document.querySelectorAll('.main-tabs .filter-btn');
+        const subPanels = document.querySelectorAll('.sub-tabs');
+
+        let currentMainCategory = 'people';
+        let currentSubCategory = 'boobie_ike';
+        let currentImgCount = 4;
+
+        function renderGallery() {
+            galleryGrid.innerHTML = '';
+            const basePath = `img/screenshots/${currentMainCategory}/${currentSubCategory}`;
+
+            for (let i = 1; i <= currentImgCount; i++) {
+                const img = document.createElement('img');
+                
+                img.src = `${basePath}/thumbs/${i}.webp`;
+                img.alt = `${currentSubCategory} screenshot ${i}`;
+                img.className = 'gallery-item';
+                img.loading = 'lazy';
+                
+                img.addEventListener('load', () => img.classList.add('loaded'));
+                img.addEventListener('click', () => {
+                    lightboxContent.innerHTML = `<img src="${basePath}/${i}.jpg" alt="Enlarged view">`;
+                    lightbox.showModal();
+                });
+
+                galleryGrid.appendChild(img);
+            }
+        }
+
+        mainBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                mainBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.classList.remove('dimmed');
+                });
+                btn.classList.add('active');
+
+                currentMainCategory = btn.getAttribute('data-main');
+                
+                subPanels.forEach(p => p.classList.remove('show'));
+                const activeSubPanel = document.getElementById(`sub-${currentMainCategory}`);
+                activeSubPanel.classList.add('show');
+
+                const firstSubBtn = activeSubPanel.querySelector('.filter-btn');
+                activeSubPanel.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                firstSubBtn.classList.add('active');
+
+                currentSubCategory = firstSubBtn.getAttribute('data-sub');
+                currentImgCount = parseInt(firstSubBtn.getAttribute('data-count'));
+
+                renderGallery();
+            });
+        });
+
+        document.querySelectorAll('.sub-tabs .filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const parent = btn.parentElement;
+                parent.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const activeMainBtn = document.querySelector(`.main-tabs .filter-btn[data-main="${currentMainCategory}"]`);
+                if (activeMainBtn) {
+                    activeMainBtn.classList.add('dimmed');
+                }
+
+                currentSubCategory = btn.getAttribute('data-sub');
+                currentImgCount = parseInt(btn.getAttribute('data-count'));
+
+                renderGallery();
+            });
+        });
+
+        renderGallery();
+
+        closeLightboxBtn.addEventListener('click', () => {
+            lightboxContent.innerHTML = '';
+            lightbox.close();
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightboxContent.innerHTML = '';
+                lightbox.close();
+            }
+        });
+
+        const themeBtn = document.getElementById('themeBtn');
+        const htmlEl = document.documentElement;
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        htmlEl.setAttribute('data-theme', savedTheme);
+        updateButtonIcon(savedTheme);
+
+        themeBtn.addEventListener('click', () => {
+            const currentTheme = htmlEl.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            htmlEl.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateButtonIcon(newTheme);
+        });
+
+        function updateButtonIcon(theme) {
+            themeBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+        }
+    </script>
+</body>
+</html>
