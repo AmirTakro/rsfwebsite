@@ -70,14 +70,57 @@
             transition: background 0.3s;
         }
 
-        .theme-toggle, .rsflogo, .content-wrapper, dialog {
+        .theme-toggle, .rsflogo, .content-wrapper, dialog, .top-announcement-banner {
             position: relative;
             z-index: 2;
         }
 
+        .top-announcement-banner {
+            width: 100%;
+            background: var(--border-neon);
+            color: #fff;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            direction: rtl;
+        }
+
+        .top-announcement-banner.hidden {
+            display: none;
+        }
+
+        .banner-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .banner-content a {
+            color: #fff;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        .banner-close-btn {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0 5px;
+            line-height: 1;
+        }
+
         .theme-toggle {
             position: fixed;
-            top: 20px;
+            top: 75px;
             right: 20px;
             background: var(--section-bg);
             border: 1px solid var(--border-neon);
@@ -293,7 +336,7 @@
             padding: 15px 0 0 0;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             margin-top: 20px;
-			text-align: center;
+            text-align: center;
         }
 
         footer img {
@@ -376,6 +419,10 @@
             .promo-logo-container img {
                 max-width: 220px;
             }
+            .top-announcement-banner {
+                font-size: 0.85rem;
+                padding: 10px;
+            }
         }
 
         @media only screen and (max-width: 480px) {
@@ -389,6 +436,14 @@
     </style>
 </head>
 <body>
+
+    <div id="topBanner" class="top-announcement-banner">
+        <div class="banner-content">
+            <span>روزشمار عرضه GTA VI: <span id="bannerCountdown">بارگذاری...</span></span>
+            <a href="/eta/">محاسبه تاریخ پریلود و عرضه gtavi در کشور شما</a>
+        </div>
+        <button id="closeBannerBtn" class="banner-close-btn">&times;</button>
+    </div>
 
     <button class="theme-toggle" id="themeBtn">🌙</button>
 
@@ -471,6 +526,41 @@
     </dialog>
 
     <script>
+        // Top Banner Countdown & Close Logic
+        const topBanner = document.getElementById('topBanner');
+        const closeBannerBtn = document.getElementById('closeBannerBtn');
+        const bannerCountdown = document.getElementById('bannerCountdown');
+
+        if (sessionStorage.getItem('bannerClosed') === 'true') {
+            topBanner.classList.add('hidden');
+        }
+
+        closeBannerBtn.addEventListener('click', () => {
+            topBanner.classList.add('hidden');
+            sessionStorage.setItem('bannerClosed', 'true');
+        });
+
+        function updateBannerCountdown() {
+            const targetDate = new Date('2026-11-19T00:00:00').getTime();
+            const now = Date.now();
+            const diff = targetDate - now;
+
+            if (diff <= 0) {
+                bannerCountdown.textContent = "بازی منتشر شد!";
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            bannerCountdown.textContent = `${days} روز و ${hours} ساعت و ${minutes} دقیقه و ${seconds} ثانیه`;
+        }
+
+        setInterval(updateBannerCountdown, 1000);
+        updateBannerCountdown();
+
         const lightbox = document.getElementById('lightbox');
         const lightboxContent = document.getElementById('lightbox-content');
         const closeLightboxBtn = document.getElementById('closeLightboxBtn');
