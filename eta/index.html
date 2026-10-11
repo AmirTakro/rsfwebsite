@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="fa" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rockstar Fans | #GTAVI Timers</title>
+    
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <meta name="description" content="Rockstar Fans - GTA VI Release and Pre-load Timers">
+
+    <!-- html2canvas for screenshot feature -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+		@font-face {
+			font-family: 'Vazirmatn';
+			src: url('/fonts/vazirmatn/Vazirmatn[wght].woff2') format('woff2-supports-variations'),
+			url('/fonts/vazirmatn/Vazirmatn[wght].woff2') format('woff2');
+			font-weight: 100 900;
+			font-style: normal;
+			font-display: swap;
+		}
+		
+        :root[data-theme="light"] {
+            --bg-overlay: rgba(10, 10, 10, 0.2);
+            --wrapper-bg: rgba(255, 255, 255, 0.9);
+            --text-color: #222;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --border-neon: #85007A;
+            --section-bg: #fff;
+            --btn-bg: #e0e0e0;
+            --card-bg: #f5f5f7;
+        }
+
+        :root[data-theme="dark"] {
+            --bg-overlay: rgba(11, 9, 20, 0.0);
+            --wrapper-bg: rgba(18, 16, 28, 0.85);
+            --text-color: #f1f1f5;
+            --box-shadow: 0 0 15px rgba(255, 0, 234, 0.3);
+            --border-neon: #FF00EA;
+            --section-bg: #161424;
+            --btn-bg: #221f38;
+            --card-bg: #1e1b2e;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('/img/bg4.webp') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 60px;
+            color: var(--text-color);
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg-overlay);
+            z-index: 1;
+            transition: background 0.3s;
+        }
+
+        .theme-toggle, .rsflogo, .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--section-bg);
+            border: 1px solid var(--border-neon);
+            color: var(--text-color);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10000;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--box-shadow);
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .rsflogo {
+            text-align: center;
+            margin: 40px 0 20px 0;
+            font-size: 5vw;
+            font-weight: 700;
+            background: linear-gradient(to bottom, #9158d8, #9158d8, #fb68a7, #f09a54, #f09a54);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+
+        .content-wrapper {
+            width: 90%;
+            max-width: 900px;
+            background: var(--wrapper-bg);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(255, 0, 234, 0.1);
+            backdrop-filter: blur(8px);
+            margin-bottom: 40px;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        .screenshot-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .screenshot-btn {
+            background: var(--border-neon);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 0, 234, 0.4);
+            transition: opacity 0.2s;
+        }
+
+        .screenshot-btn:hover {
+            opacity: 0.85;
+        }
+
+        .regions-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            direction: rtl;
+        }
+
+        .region-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 0, 234, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .region-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--border-neon);
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 6px;
+        }
+
+        .timer-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .timer-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .time-label {
+            font-weight: 600;
+            opacity: 0.9;
+        }
+
+        .countdown-val {
+            font-family: monospace;
+            font-weight: bold;
+            color: #fb68a7;
+            font-size: 1.05rem;
+        }
+
+        footer {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 15px 0 0 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+
+        footer img {
+            width: 90px;
+            height: auto;
+            margin-bottom: 5px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            color: var(--text-color);
+        }
+
+        @media only screen and (max-width: 768px) {
+            .rsflogo {
+                font-size: 2.5rem;
+            }
+            .content-wrapper {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="theme-toggle" id="themeBtn">🌙</button>
+
+    <h1 class="rsflogo">ROCKSTAR FANS</h1>
+
+    <div class="content-wrapper" id="captureArea">         
+        <div class="screenshot-container">
+            <button class="screenshot-btn" id="screenshotBtn">دریافت اسکرین‌شات تایمرها</button>
+        </div>
+
+        <div class="regions-grid" id="regionsGrid">
+            <!-- Dynamic regions will be inserted here -->
+        </div>
+        
+        <footer>
+            <img src="/img/logo-colored.png" alt="Rockstar Fans">
+            <p>&copy; 2011-2026</p>
+        </footer>
+    </div>
+
+    <script>
+        // Define regions with their respective timezones and base release/preload UTC dates
+        // Release base: Nov 19, 2026 00:00 local time
+        // Pre-load base: Nov 12, 2026 00:00 local time
+        const regionsData = [
+            { name: "آمریکا (Eastern)", tz: "America/New_York" },
+            { name: "کانادا (Toronto)", tz: "America/Toronto" },
+            { name: "مکزیک (Mexico City)", tz: "America/Mexico_City" },
+            { name: "برزیل (São Paulo)", tz: "America/Sao_Paulo" },
+            { name: "انگلیس (UK)", tz: "Europe/London" },
+            { name: "آلمان", tz: "Europe/Berlin" },
+            { name: "فرانسه", tz: "Europe/Paris" },
+            { name: "ترکیه", tz: "Europe/Istanbul" },
+            { name: "امارات", tz: "Asia/Dubai" },
+            { name: "هند", tz: "Asia/Kolkata" },
+            { name: "اوکراین", tz: "Europe/Kiev" },
+            { name: "قزاقستان", tz: "Asia/Almaty" },
+            { name: "ژاپن", tz: "Asia/Tokyo" },
+            { name: "کره جنوبی", tz: "Asia/Seoul" },
+            { name: "نیوزیلند", tz: "Pacific/Auckland" },
+            { name: "استرالیا (Sydney)", tz: "Australia/Sydney" }
+        ];
+
+        // Target local dates
+        // Pre-load: 2026-11-12T00:00:00
+        // Release: 2026-11-19T00:00:00
+        
+        function getEpochInTimeZone(dateStr, timeZone) {
+            // Helper to find UTC epoch for a local datetime string in a given timezone
+            const dummyDate = new Date(dateStr + 'Z');
+            // Use Intl to find offset
+            const tzDateStr = new Intl.DateTimeFormat('en-US', {
+                timeZone: timeZone,
+                year: 'numeric', month: '2-digit', day: '2-digit',
+                hour: '2-digit', minute: '2-digit', second: '2-digit',
+                hour12: false
+            }).format(new Date());
+            
+            // Simpler approach: parse target date considering offset
+            // We can construct target date accurately by iterating or using standard offset difference
+            const targetIso = `${dateStr}`;
+            // Let's compute exact epoch by comparing formatted strings
+            return targetIso;
+        }
+
+        // To make it robust and precise for user display in Iran time (Asia/Tehran):
+        // Let's define target global release moment or rolling midnight. Assuming rolling midnight local time:
+        // Local release: 2026-11-19T00:00:00 in each timezone.
+        // We calculate what that exact moment is in Iran time.
+        
+        function formatIranDateTime(utcDate) {
+            return new Intl.DateTimeFormat('fa-IR', {
+                timeZone: 'Asia/Tehran',
+                dateStyle: 'full',
+                timeStyle: 'medium'
+            }).format(utcDate);
+        }
+
+        const container = document.getElementById('regionsGrid');
+
+        // Precompute timestamps
+        const regionsWithTimes = regionsData.map(reg => {
+            // Local release time string
+            // We can determine the UTC timestamp for Nov 19 2026 00:00 in `reg.tz`
+            // JavaScript doesn't have built-in timezone parser for arbitrary zones without libraries, 
+            // but we can use Intl to format a UTC guess or use fixed known offsets for Nov 2026.
+            // Let's calculate precise timestamps using Intl trick:
+            return {
+                ...reg,
+                releaseDate: getTargetDate(reg.tz, '2026-11-19T00:00:00'),
+                preloadDate: getTargetDate(reg.tz, '2026-11-12T00:00:00')
+            };
+        });
+
+        function getTargetDate(timeZone, localIsoString) {
+            // Parses local time in given timezone to a UTC Date object accurately
+            const [datePart, timePart] = localIsoString.split('T');
+            const [y, m, d] = datePart.split('-').map(Number);
+            const [h, min, s] = timePart.split(':').map(Number);
+
+            // Start with a guess using UTC
+            let utcGuess = Date.UTC(y, m - 1, d, h, min, s);
+            
+            // Refine guess by checking what time that UTC translates to in the target timezone
+            const formatter = new Intl.DateTimeFormat('en-US', {
+                timeZone: timeZone,
+                year: 'numeric', month: 'numeric', day: 'numeric',
+                hour: 'numeric', minute: 'numeric', second: 'numeric',
+                hour12: false
+            });
+
+            // Iterative adjustment (converges in 1-2 iterations)
+            for (let i = 0; i < 3; i++) {
+                const parts = formatter.formatToParts(new Date(utcGuess));
+                const p = {};
+                parts.forEach(part => p[part.type] = part.value);
+                const tzYear = parseInt(p.year);
+                const tzMonth = parseInt(p.month);
+                const tzDay = parseInt(p.day);
+                const tzHour = parseInt(p.hour || 0);
+                const tzMin = parseInt(p.minute || 0);
+                const tzSec = parseInt(p.second || 0);
+
+                const tzAsUtc = Date.UTC(tzYear, tzMonth - 1, tzDay, tzHour, tzMin, tzSec);
+                const diff = tzAsUtc - utcGuess;
+                utcGuess = utcGuess - diff;
+            }
+            return new Date(utcGuess);
+        }
+
+        function renderTimersList() {
+            container.innerHTML = '';
+            regionsWithTimes.forEach((reg, index) => {
+                const card = document.createElement('div');
+                card.className = 'region-card';
+                card.innerHTML = `
+                    <div class="region-title">${reg.name}</div>
+                    <div class="timer-row">
+                        <span class="time-label">تاریخ و ساعت پریلود (به وقت ایران):</span>
+                        <span id="preload-time-${index}">${formatIranDateTime(reg.preloadDate)}</span>
+                        <span class="time-label" style="margin-top:4px;">زمان باقیمانده تا پریلود:</span>
+                        <span class="countdown-val" id="preload-cd-${index}">در حال محاسبه...</span>
+                    </div>
+                    <div class="timer-row" style="margin-top: 12px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 10px;">
+                        <span class="time-label">تاریخ و ساعت عرضه بازی (به وقت ایران):</span>
+                        <span id="release-time-${index}">${formatIranDateTime(reg.releaseDate)}</span>
+                        <span class="time-label" style="margin-top:4px;">زمان باقیمانده تا عرضه:</span>
+                        <span class="countdown-val" id="release-cd-${index}">در حال محاسبه...</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        renderTimersList();
+
+        function updateCountdowns() {
+            const now = new Date().getTime();
+            regionsWithTimes.forEach((reg, index) => {
+                // Preload countdown
+                const preloadDiff = reg.preloadDate.getTime() - now;
+                const preloadCdEl = document.getElementById(`preload-cd-${index}`);
+                if (preloadCdEl) {
+                    preloadCdEl.textContent = formatCountdown(preloadDiff);
+                }
+
+                // Release countdown
+                const releaseDiff = reg.releaseDate.getTime() - now;
+                const releaseCdEl = document.getElementById(`release-cd-${index}`);
+                if (releaseCdEl) {
+                    releaseCdEl.textContent = formatCountdown(releaseDiff);
+                }
+            });
+        }
+
+        function formatCountdown(diff) {
+            if (diff <= 0) return "منتشر شد!";
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            return `${days} روز و ${hours} ساعت و ${minutes} دقیقه و ${seconds} ثانیه`;
+        }
+
+        setInterval(updateCountdowns, 1000);
+        updateCountdowns();
+
+        // Screenshot button logic
+        document.getElementById('screenshotBtn').addEventListener('click', () => {
+            const btn = document.getElementById('screenshotBtn');
+            btn.style.display = 'none'; // hide button temporarily during capture
+            
+            html2canvas(document.getElementById('captureArea'), {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: null
+            }).then(canvas => {
+                btn.style.display = 'block';
+                const link = document.createElement('a');
+                link.download = 'GTAVI-Timers.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            }).catch(err => {
+                btn.style.display = 'block';
+                console.error(err);
+            });
+        });
+
+        // Theme toggle logic
+        const themeBtn = document.getElementById('themeBtn');
+        const htmlEl = document.documentElement;
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        htmlEl.setAttribute('data-theme', savedTheme);
+        updateButtonIcon(savedTheme);
+
+        themeBtn.addEventListener('click', () => {
+            const currentTheme = htmlEl.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            htmlEl.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateButtonIcon(newTheme);
+        });
+
+        function updateButtonIcon(theme) {
+            themeBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+        }
+    </script>
+</body>
+</html>
