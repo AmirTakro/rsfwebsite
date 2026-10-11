@@ -1,19 +1,20 @@
 <link rel="icon" type="image/png" href="/img/favicon.png">
 <meta name="description" content="Rockstar Fans - GTA VI Release and Preload Time Calculator across different regions.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Include html2canvas for screenshot functionality -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <style>
-	@font-face {
-		font-family: 'Vazirmatn';
-		src: url('/fonts/vazirmatn/Vazirmatn[wght].woff2') format('woff2-supports-variations'),
-		url('/fonts/vazirmatn/Vazirmatn[wght].woff2') format('woff2');
-		font-weight: 100 900;
-		font-style: normal;
-		font-display: swap;
-	}
-	
+    @font-face {
+        font-family: 'Vazirmatn';
+        src: url('/fonts/vazirmatn/Vazirmatn[wght].woff2') format('woff2-supports-variations'),
+        url('/fonts/vazirmatn/Vazirmatn[wght].woff2') format('woff2');
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: swap;
+    }
+    
     :root[data-theme="light"] {
         --bg-overlay: rgba(10, 10, 10, 0.2);
         --wrapper-bg: rgba(255, 255, 255, 0.92);
@@ -57,6 +58,7 @@
         align-items: center;
         padding-bottom: 60px;
         color: var(--text-color);
+        direction: rtl;
     }
 
     body::before {
@@ -96,7 +98,7 @@
     .rsflogo {
         text-align: center;
         margin: 40px 0 20px 0;
-        font-size: 5vw;
+        font-size: 3.5rem;
         font-weight: 700;
         background: linear-gradient(to bottom, #9158d8, #9158d8, #fb68a7, #f09a54, #f09a54);
         -webkit-background-clip: text;
@@ -135,6 +137,7 @@
         display: block;
         margin-bottom: 8px;
         font-weight: 600;
+        text-align: right;
     }
 
     .search-input, .country-select {
@@ -148,10 +151,18 @@
         margin-bottom: 10px;
         outline: none;
         transition: all 0.3s;
+        direction: rtl;
+        text-align: right;
     }
 
     .country-select {
         cursor: pointer;
+    }
+
+    .country-select option {
+        padding: 8px 10px;
+        direction: rtl;
+        text-align: right;
     }
 
     /* Screenshot Target Card Container */
@@ -162,6 +173,8 @@
         padding: 2rem;
         box-shadow: var(--box-shadow);
         margin-top: 20px;
+        direction: rtl;
+        text-align: right;
     }
 
     .card-header-title {
@@ -177,18 +190,6 @@
         grid-template-columns: 1fr 1fr;
         gap: 20px;
         margin-bottom: 20px;
-    }
-
-    @media (max-width: 768px) {
-        .time-grid {
-            grid-template-columns: 1fr;
-        }
-        .rsflogo {
-            font-size: 2.5rem;
-        }
-        .content-wrapper {
-            padding: 1.5rem;
-        }
     }
 
     .time-box {
@@ -266,7 +267,7 @@
         padding: 15px 20px 0 20px;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
         margin-top: 20px;
-		text-align: center;
+        text-align: center;
     }
 
     footer img {
@@ -280,6 +281,70 @@
         font-size: 0.9rem;
         opacity: 0.7;
         color: var(--text-color);
+    }
+
+    /* Responsive Media Queries */
+    @media (max-width: 992px) {
+        .content-wrapper {
+            width: 92%;
+            padding: 2rem;
+        }
+        .rsflogo {
+            font-size: 3rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .time-grid {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        .rsflogo {
+            font-size: 2.3rem;
+            margin: 30px 0 15px 0;
+        }
+        .content-wrapper {
+            padding: 1.25rem;
+            width: 94%;
+        }
+        .theme-toggle {
+            top: 12px;
+            right: 12px;
+            width: 40px;
+            height: 40px;
+            font-size: 18px;
+        }
+        .countdown-card {
+            padding: 1.25rem;
+        }
+        .card-header-title {
+            font-size: 1.1rem;
+        }
+        .countdown-timer {
+            font-size: 1.1rem;
+        }
+        .action-btn {
+            font-size: 1rem;
+            padding: 12px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .rsflogo {
+            font-size: 1.8rem;
+        }
+        h2 {
+            font-size: 1.2rem;
+        }
+        .time-box h3 {
+            font-size: 1rem;
+        }
+        .time-detail {
+            font-size: 0.85rem;
+        }
+        .countdown-timer {
+            font-size: 1rem;
+        }
     }
 </style>
 
@@ -297,7 +362,7 @@
             </p>
             
             <label for="countrySearch">جستجوی دستی کشور:</label>
-            <input type="text" id="countrySearch" class="search-input" placeholder="مثال: United States, آلمان، برزیل...">
+            <input type="text" id="countrySearch" class="search-input" placeholder="مثال: آمریکا، آلمان، برزیل...">
 
             <label for="countrySelect" style="margin-top: 10px;">انتخاب از لیست کشویی:</label>
             <select id="countrySelect" class="country-select" size="6"></select>
@@ -305,7 +370,7 @@
 
         <!-- Screenshot Capture Area -->
         <div id="captureArea" class="countdown-card">
-            <div class="card-header-title" id="selectedCountryDisplay">انتخاب ریجن: ایالات متحده (شرق)</div>
+            <div class="card-header-title" id="selectedCountryDisplay">انتخاب ریجن: 🇺🇸 آمریکا (USA - Eastern)</div>
             
             <div class="time-grid">
                 <!-- Preload Box -->
@@ -325,7 +390,7 @@
                 </div>
             </div>
 
-            <div style="text-align: center; font-size: 0.85% (0.8rem); opacity: 0.7; margin-top: 10px;">
+            <div style="text-align: center; font-size: 0.8rem; opacity: 0.7; margin-top: 10px;">
                 Rockstar Fans • GTAVI Countdown Engine
             </div>
         </div>
@@ -344,45 +409,53 @@
 </div>
 
 <script>
-    // Comprehensive Regions / Countries Data with IANA Timezones
-    const regionsData = [
-{ name: "آمریکا (USA - Eastern)", tz: "America/New_York" },
-{ name: "انگلیس - UK - بریتانیا (United Kingdom)", tz: "Europe/London" },
-{ name: "آلمان (Germany)", tz: "Europe/Berlin" },
-{ name: "فرانسه (France)", tz: "Europe/Paris" },
-{ name: "نیوزیلند (New Zealand)", tz: "Pacific/Auckland" },
-{ name: "ترکیه (Turkey)", tz: "Europe/Istanbul" },
-{ name: "آرژانتین (Argentina)", tz: "America/Argentina/Buenos_Aires" },
-{ name: "آفریقای جنوبی (South Africa)", tz: "Africa/Johannesburg" },
-{ name: "اتریش (Austria)", tz: "Europe/Vienna" },
-{ name: "اسپانیایی (Spain)", tz: "Europe/Madrid" },
-{ name: "استرالیا - آدلاید (Australia - Adelaide)", tz: "Australia/Adelaide" },
-{ name: "استرالیا - پرث (Australia - Perth)", tz: "Australia/Perth" },
-{ name: "استرالیا - سیدنی (Australia - Sydney)", tz: "Australia/Sydney" },
-{ name: "اسرائیل (Israel)", tz: "Asia/Jerusalem" },
-{ name: "امارات متحده عربی (United Arab Emirates)", tz: "Asia/Dubai" },
-{ name: "اوکراین (Ukraine)", tz: "Europe/Kyiv" },
-{ name: "ایرلند (Ireland)", tz: "Europe/Dublin" },
-{ name: "ایتالیا (Italy)", tz: "Europe/Rome" },
-{ name: "برزیل (Brazil - Sao Paulo)", tz: "America/Sao_Paulo" },
-{ name: "بلژیک (Belgium)", tz: "Europe/Brussels" },
-{ name: "پرتغال (Portugal)", tz: "Europe/Lisbon" },
-{ name: "دانمارک (Denmark)", tz: "Europe/Copenhagen" },
-{ name: "ژاپن (Japan)", tz: "Asia/Tokyo" },
-{ name: "سوئد (Sweden)", tz: "Europe/Stockholm" },
-{ name: "سوئیس (Switzerland)", tz: "Europe/Zurich" },
-{ name: "عربستان  (Saudi Arabia)", tz: "Asia/Riyadh" },
-{ name: "فنلاند (Finland)", tz: "Europe/Helsinki" },
-{ name: "کانادا - تورنتو (Canada - Eastern)", tz: "America/Toronto" },
-{ name: "کره جنوبی (South Korea)", tz: "Asia/Seoul" },
-{ name: "مجارستان (Hungary)", tz: "Europe/Budapest" },
-{ name: "مکزیک (Mexico)", tz: "America/Mexico_City" },
-{ name: "هلند (Netherlands)", tz: "Europe/Amsterdam" },
-{ name: "هند (India)", tz: "Asia/Kolkata" }
+    const rawRegionsData = [
+        { name: "آمریکا (USA - Eastern)", flag: "🇺🇸", tz: "America/New_York", priority: 1 },
+        { name: "انگلیس - UK - بریتانیا (United Kingdom)", flag: "🇬🇧", tz: "Europe/London", priority: 2 },
+        { name: "آلمان (Germany)", flag: "🇩🇪", tz: "Europe/Berlin", priority: 3 },
+        { name: "فرانسه (France)", flag: "🇫🇷", tz: "Europe/Paris", priority: 4 },
+        { name: "نیوزیلند (New Zealand)", flag: "🇳🇿", tz: "Pacific/Auckland", priority: 5 },
+        { name: "ترکیه (Turkey)", flag: "🇹🇷", tz: "Europe/Istanbul", priority: 6 },
+        
+        { name: "آرژانتین (Argentina)", flag: "🇦🇷", tz: "America/Argentina/Buenos_Aires", priority: 100 },
+        { name: "آفریقای جنوبی (South Africa)", flag: "🇿🇦", tz: "Africa/Johannesburg", priority: 100 },
+        { name: "اتریش (Austria)", flag: "🇦🇹", tz: "Europe/Vienna", priority: 100 },
+        { name: "اسپانیایی (Spain)", flag: "🇪🇸", tz: "Europe/Madrid", priority: 100 },
+        { name: "استرالیا - آدلاید (Australia - Adelaide)", flag: "🇦🇺", tz: "Australia/Adelaide", priority: 100 },
+        { name: "استرالیا - پرث (Australia - Perth)", flag: "🇦🇺", tz: "Australia/Perth", priority: 100 },
+        { name: "استرالیا - سیدنی (Australia - Sydney)", flag: "🇦🇺", tz: "Australia/Sydney", priority: 100 },
+        { name: "اسرائیل (Israel)", flag: "🇮🇱", tz: "Asia/Jerusalem", priority: 100 },
+        { name: "امارات متحده عربی (United Arab Emirates)", flag: "🇦🇪", tz: "Asia/Dubai", priority: 100 },
+        { name: "اوکراین (Ukraine)", flag: "🇺🇦", tz: "Europe/Kyiv", priority: 100 },
+        { name: "ایرلند (Ireland)", flag: "🇮🇪", tz: "Europe/Dublin", priority: 100 },
+        { name: "ایتالیا (Italy)", flag: "🇮🇹", tz: "Europe/Rome", priority: 100 },
+        { name: "برزیل (Brazil - Sao Paulo)", flag: "🇧🇷", tz: "America/Sao_Paulo", priority: 100 },
+        { name: "بلژیک (Belgium)", flag: "🇧🇪", tz: "Europe/Brussels", priority: 100 },
+        { name: "پرتغال (Portugal)", flag: "🇵🇹", tz: "Europe/Lisbon", priority: 100 },
+        { name: "دانمارک (Denmark)", flag: "🇩🇰", tz: "Europe/Copenhagen", priority: 100 },
+        { name: "ژاپن (Japan)", flag: "🇯🇵", tz: "Asia/Tokyo", priority: 100 },
+        { name: "سوئد (Sweden)", flag: "🇸🇪", tz: "Europe/Stockholm", priority: 100 },
+        { name: "سوئیس (Switzerland)", flag: "🇨🇭", tz: "Europe/Zurich", priority: 100 },
+        { name: "عربستان (Saudi Arabia)", flag: "🇸🇦", tz: "Asia/Riyadh", priority: 100 },
+        { name: "فنلاند (Finland)", flag: "🇫🇮", tz: "Europe/Helsinki", priority: 100 },
+        { name: "کانادا - تورنتو (Canada - Eastern)", flag: "🇨🇦", tz: "America/Toronto", priority: 100 },
+        { name: "کره جنوبی (South Korea)", flag: "🇰🇷", tz: "Asia/Seoul", priority: 100 },
+        { name: "مجارستان (Hungary)", flag: "🇭🇺", tz: "Europe/Budapest", priority: 100 },
+        { name: "مکزیک (Mexico)", flag: "🇲🇽", tz: "America/Mexico_City", priority: 100 },
+        { name: "هلند (Netherlands)", flag: "🇳🇱", tz: "Europe/Amsterdam", priority: 100 },
+        { name: "هند (India)", flag: "🇮🇳", tz: "Asia/Kolkata", priority: 100 }
     ];
 
-    // Sort regions alphabetically by name
-    regionsData.sort((a, b) => a.name.localeCompare(b.name, 'fa'));
+    function sortRegions(data) {
+        return data.sort((a, b) => {
+            if (a.priority !== b.priority) {
+                return a.priority - b.priority;
+            }
+            return a.name.localeCompare(b.name, 'fa');
+        });
+    }
+
+    const regionsData = sortRegions(rawRegionsData);
 
     const countrySelect = document.getElementById('countrySelect');
     const countrySearch = document.getElementById('countrySearch');
@@ -398,10 +471,12 @@
 
     function populateSelect(list) {
         countrySelect.innerHTML = '';
-        list.forEach((item, index) => {
+        list.forEach((item) => {
             const opt = document.createElement('option');
             opt.value = item.tz;
-            opt.textContent = item.name;
+            opt.dataset.flag = item.flag;
+            opt.dataset.name = item.name;
+            opt.textContent = `${item.flag} ${item.name}`;
             if (item.tz === "America/New_York") opt.selected = true;
             countrySelect.appendChild(opt);
         });
@@ -416,6 +491,7 @@
         populateSelect(filtered);
         if (filtered.length > 0) {
             countrySelect.selectedIndex = 0;
+            updateTimers();
         }
     });
 
@@ -446,7 +522,7 @@
     }
 
     function formatRemainingTime(ms) {
-        if (ms <= 0) return "منت منتشر شد!";
+        if (ms <= 0) return "منتشر شد!";
         const seconds = Math.floor((ms / 1000) % 60);
         const minutes = Math.floor((ms / (1000 * 60)) % 60);
         const hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
@@ -460,8 +536,10 @@
         if (!selectedOption) return;
 
         const tz = selectedOption.value;
-        const countryName = selectedOption.textContent;
-        selectedCountryDisplay.textContent = `ریجن انتخاب‌شده: ${countryName}`;
+        const flag = selectedOption.dataset.flag || "";
+        const countryName = selectedOption.dataset.name || selectedOption.textContent;
+        
+        selectedCountryDisplay.textContent = `ریجن انتخاب‌شده: ${flag} ${countryName}`;
 
         // Preload: Nov 12, 2026, 00:00 local
         const preloadEpoch = getEpochForLocalTime(2026, 11, 12, 0, 0, tz);
