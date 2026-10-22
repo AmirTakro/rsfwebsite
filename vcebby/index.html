@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="fa" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rockstar Fans | پلاک‌های اختصاصی GTAVI</title>
+    
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <meta name="description" content="Rockstar Fans - GTA VI Custom License Plates Generator.">
+
+    <style>
+        @font-face {
+            font-family: 'Vazirmatn';
+            src: url('/fonts/vazirmatn/Vazirmatn[wght].woff2') format('woff2-supports-variations'),
+            url('/fonts/vazirmatn/Vazirmatn[wght].woff2') format('woff2');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'GTA Art Deco';
+            src: url('/fonts/gta-art-deco.woff2') format('woff2'),
+                 url('/fonts/gta-art-deco.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        :root[data-theme="light"] {
+            --bg-overlay: rgba(10, 10, 10, 0.2);
+            --wrapper-bg: rgba(255, 255, 255, 0.92);
+            --text-color: #222;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --border-neon: #85007A;
+            --section-bg: #fff;
+            --btn-bg: #e0e0e0;
+            --btn-active: #85007A;
+            --btn-active-text: #fff;
+            --card-bg: rgba(245, 240, 250, 0.8);
+        }
+
+        :root[data-theme="dark"] {
+            --bg-overlay: rgba(11, 9, 20, 0.0);
+            --wrapper-bg: rgba(18, 16, 28, 0.9);
+            --text-color: #f1f1f5;
+            --box-shadow: 0 0 20px rgba(255, 0, 234, 0.25);
+            --border-neon: #FF00EA;
+            --section-bg: #161424;
+            --btn-bg: #221f38;
+            --btn-active: #FF00EA;
+            --btn-active-text: #fff;
+            --card-bg: rgba(28, 24, 43, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('/img/bg4.webp') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 60px;
+            color: var(--text-color);
+            direction: rtl;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg-overlay);
+            z-index: 1;
+            transition: background 0.3s;
+        }
+
+        .theme-toggle, .rsflogo, .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--section-bg);
+            border: 1px solid var(--border-neon);
+            color: var(--text-color);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10000;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--box-shadow);
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .rsflogo {
+            text-align: center;
+            margin: 40px 0 20px 0;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(to bottom, #9158d8, #9158d8, #fb68a7, #f09a54, #f09a54);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+
+        .content-wrapper {
+            width: 90%;
+            max-width: 850px;
+            background: var(--wrapper-bg);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(255, 0, 234, 0.15);
+            backdrop-filter: blur(8px);
+            margin-bottom: 40px;
+            transition: background 0.3s, box-shadow 0.3s;
+            direction: rtl;
+        }
+
+        h2 {
+            border-bottom: 2px solid var(--border-neon);
+            padding-bottom: 8px;
+            margin-top: 0;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            text-align: center;
+        }
+
+        .selector-section {
+            margin-bottom: 25px;
+        }
+
+        .selector-section label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .country-select, .text-input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border-neon);
+            background: var(--section-bg);
+            color: var(--text-color);
+            font-size: 1rem;
+            margin-bottom: 15px;
+            outline: none;
+            transition: all 0.3s;
+            direction: ltr;
+            text-align: center;
+        }
+
+        .country-select {
+            direction: rtl;
+            text-align: right;
+            cursor: pointer;
+        }
+
+        .inputs-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        .inputs-group .text-input {
+            flex: 1;
+        }
+
+        .plate-preview-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-neon);
+            border-radius: 14px;
+            padding: 2rem;
+            box-shadow: var(--box-shadow);
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        canvas {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            background: #000;
+        }
+
+        .action-btn {
+            background: var(--btn-active);
+            color: var(--btn-active-text);
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(255, 0, 234, 0.3);
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .action-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        #telegram {
+            text-align: center;
+            margin: 2.5rem 0 1rem 0;
+        }
+
+        #telegram a {
+            display: inline-block;
+            padding: 0.7rem 2rem;
+            background-color: #0088cc;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        #telegram a:hover {
+            background-color: #006699;
+        }
+
+        footer {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 20px 0 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        footer img {
+            width: 200px;
+            height: auto;
+            margin-bottom: 5px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            color: var(--text-color);
+        }
+
+        @media (max-width: 768px) {
+            .rsflogo { font-size: 2.3rem; margin: 30px 0 15px 0; }
+            .content-wrapper { padding: 1.25rem; width: 94%; }
+            .plate-preview-card { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="theme-toggle" id="themeBtn">🌙</button>
+
+    <h1 class="rsflogo">ROCKSTAR FANS</h1>
+
+    <div class="content-wrapper">         
+        <main>
+            <div class="selector-section">
+                <h2>سازنده پلاک‌های اختصاصی لئونیدا (GTAVI)</h2>
+                <p style="text-align: center; font-size: 0.95rem; opacity: 0.85; margin-bottom: 20px;">
+                    پلاک مورد نظر خود را انتخاب کرده و متن دلخواهتان را وارد کنید تا به صورت زنده روی پلاک ثبت و آماده دانلود شود.
+                </p>
+                
+                <label for="plateSelect">انتخاب طرح پلاک:</label>
+                <select id="plateSelect" class="country-select">
+                    <option value="flamingo">لیونایدا فلامینگو (دارای لوگو وسط)</option>
+                    <option value="crocodile">لیونایدا کروکودیل (دارای لوگو وسط)</option>
+                    <option value="orange">لیونایدا پرتغال (دارای لوگو وسط)</option>
+                    <option value="dolphin">لیونایدا دلفین (دارای لوگو وسط)</option>
+                    <option value="pink">لیونایدا صورتی (یکپارچه ۸ کاراکتر)</option>
+                </select>
+
+                <div id="inputContainer">
+                    <!-- Dynamic Inputs Rendered Here -->
+                </div>
+            </div>
+
+            <div class="plate-preview-card">
+                <canvas id="plateCanvas" width="800" height="400"></canvas>
+                <button id="downloadBtn" class="action-btn">📷 ذخیره و دانلود تصویر پلاک</button>
+            </div>
+
+            <section id="telegram">
+                <a href="https://t.me/rockstarfans" target="_blank">کانال تلگرام هواداران راکستار</a>
+            </section>
+        </main>
+        
+        <footer>
+            <img src="/img/newlogo-colored.png" alt="Rockstar Fans">
+            <p>&copy; 2011-2026</p>
+        </footer>
+    </div>
+
+    <script>
+        // Plates Configuration Database
+        const platesConfig = {
+            flamingo: { name: "فلامینگو", src: "/img/plates/flamingo.png", split: true, max1: 4, max2: 4 },
+            crocodile: { name: "کروکودیل", src: "/img/plates/crocodile.png", split: true, max1: 4, max2: 4 },
+            orange: { name: "پرتغال", src: "/img/plates/orange.png", split: true, max1: 4, max2: 4 },
+            dolphin: { name: "دلفین", src: "/img/plates/dolphin.png", split: true, max1: 4, max2: 4 },
+            pink: { name: "صورتی", src: "/img/plates/pink.png", split: false, max: 8 }
+        };
+
+        const plateSelect = document.getElementById('plateSelect');
+        const inputContainer = document.getElementById('inputContainer');
+        const canvas = document.getElementById('plateCanvas');
+        const ctx = canvas.getContext('2d');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        let currentPlateKey = 'flamingo';
+        let textPart1 = 'ROCK';
+        let textPart2 = 'STAR';
+        let fullText = 'ROCKSTAR';
+
+        function setupInputs() {
+            const config = platesConfig[currentPlateKey];
+            inputContainer.innerHTML = '';
+            
+            if (config.split) {
+                inputContainer.innerHTML = `
+                    <label>متن پلاک (دو بخش ۴ کاراکتری به تفکیک لوگو):</label>
+                    <div class="inputs-group">
+                        <input type="text" id="part1Input" class="text-input" maxlength="4" value="${textPart1}" placeholder="بخش اول (۴ کاراکتر)">
+                        <input type="text" id="part2Input" class="text-input" maxlength="4" value="${textPart2}" placeholder="بخش دوم (۴ کاراکتر)">
+                    </div>
+                `;
+                document.getElementById('part1Input').addEventListener('input', (e) => {
+                    textPart1 = e.target.value.toUpperCase();
+                    drawPlate();
+                });
+                document.getElementById('part2Input').addEventListener('input', (e) => {
+                    textPart2 = e.target.value.toUpperCase();
+                    drawPlate();
+                });
+            } else {
+                inputContainer.innerHTML = `
+                    <label>متن پلاک (تا ۸ کاراکتر یکپارچه):</label>
+                    <input type="text" id="fullInput" class="text-input" maxlength="8" value="${fullText}" placeholder="متن پلاک (حداکثر ۸ کاراکتر)">
+                `;
+                document.getElementById('fullInput').addEventListener('input', (e) => {
+                    fullText = e.target.value.toUpperCase();
+                    drawPlate();
+                });
+            }
+        }
+
+        const plateImage = new Image();
+        plateImage.crossOrigin = "anonymous";
+
+        function drawPlate() {
+            const config = platesConfig[currentPlateKey];
+            plateImage.src = config.src;
+            
+            plateImage.onload = () => {
+                canvas.width = plateImage.naturalWidth || 800;
+                canvas.height = plateImage.naturalHeight || 400;
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(plateImage, 0, 0, canvas.width, canvas.height);
+
+                // Typography Settings
+                ctx.font = `bold ${canvas.height * 0.35}px 'GTA Art Deco', sans-serif`;
+                ctx.fillStyle = "#111111";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+
+                const centerY = canvas.height * 0.52;
+
+                if (config.split) {
+                    // Draw Part 1 on the left side
+                    ctx.fillText(textPart1, canvas.width * 0.28, centerY);
+                    // Draw Part 2 on the right side
+                    ctx.fillText(textPart2, canvas.width * 0.72, centerY);
+                } else {
+                    // Draw full text centered
+                    ctx.fillText(fullText, canvas.width * 0.5, centerY);
+                }
+            };
+        }
+
+        plateSelect.addEventListener('change', (e) => {
+            currentPlateKey = e.target.value;
+            setupInputs();
+            drawPlate();
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.download = `gtavi-plate-${currentPlateKey}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
+
+        // Initialize
+        setupInputs();
+        drawPlate();
+
+        // Theme Toggle Logic
+        const themeBtn = document.getElementById('themeBtn');
+        const htmlEl = document.documentElement;
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        htmlEl.setAttribute('data-theme', savedTheme);
+        updateButtonIcon(savedTheme);
+
+        themeBtn.addEventListener('click', () => {
+            const currentTheme = htmlEl.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            htmlEl.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateButtonIcon(newTheme);
+        });
+
+        function updateButtonIcon(theme) {
+            themeBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+        }
+    </script>
+</body>
+</html>
