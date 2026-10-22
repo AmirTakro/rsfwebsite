@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rockstar Fans | ساخت پلاک GTAVI</title>
+    <title>Rockstar Fans | سفارشی‌سازی پلاک‌های GTAVI</title>
     
     <link rel="icon" type="image/png" href="/img/favicon.png">
     <meta name="description" content="Rockstar Fans - GTA VI custom license plate generator.">
@@ -363,8 +363,8 @@
                 type: "single",
                 maxChars: 8,
                 textX: 877,
-                textY: 530,
-                fontSize: 240,
+                textY: 460,
+                fontSize: 210,
                 color: "#1a1a1a"
             },
             {
@@ -374,10 +374,10 @@
                 image: "/img/plates/flamingo.webp",
                 type: "split",
                 maxChars: 4,
-                leftX: 450,
-                rightX: 1300,
-                textY: 530,
-                fontSize: 260,
+                leftX: 355,
+                rightX: 1400,
+                textY: 460,
+                fontSize: 200,
                 color: "#1a1a1a"
             },
             {
@@ -387,10 +387,10 @@
                 image: "/img/plates/crocodile.webp",
                 type: "split",
                 maxChars: 4,
-                leftX: 450,
-                rightX: 1300,
-                textY: 530,
-                fontSize: 260,
+                leftX: 355,
+                rightX: 1400,
+                textY: 460,
+                fontSize: 200,
                 color: "#1a1a1a"
             },
             {
@@ -400,10 +400,10 @@
                 image: "/img/plates/portugal.webp",
                 type: "split",
                 maxChars: 4,
-                leftX: 450,
-                rightX: 1300,
-                textY: 530,
-                fontSize: 260,
+                leftX: 355,
+                rightX: 1400,
+                textY: 460,
+                fontSize: 200,
                 color: "#1a1a1a"
             },
             {
@@ -413,10 +413,10 @@
                 image: "/img/plates/dolphin.webp",
                 type: "split",
                 maxChars: 4,
-                leftX: 450,
-                rightX: 1300,
-                textY: 530,
-                fontSize: 260,
+                leftX: 355,
+                rightX: 1400,
+                textY: 460,
+                fontSize: 200,
                 color: "#1a1a1a"
             }
         ];
@@ -432,7 +432,7 @@
 
         function renderThumbnails() {
             thumbnailsContainer.innerHTML = '';
-            platesData.forEach((plate, index) => {
+            platesData.forEach((plate) => {
                 const div = document.createElement('div');
                 div.className = `thumb-item ${plate.id === currentPlate.id ? 'active' : ''}`;
                 div.innerHTML = `
@@ -495,6 +495,12 @@
                 ctx.font = `${currentPlate.fontSize}px 'GTAArtDeco', sans-serif`;
                 ctx.fillStyle = currentPlate.color;
                 ctx.textBaseline = 'middle';
+
+                // تنظیمات افکت سایه و برجستگی (Emboss / 3D)
+                ctx.shadowColor = 'rgba(255, 255, 255, 0.45)';
+                ctx.shadowOffsetX = 2;
+                ctx.shadowOffsetY = 4;
+                ctx.shadowBlur = 3;
 
                 if (currentPlate.type === 'single') {
                     ctx.textAlign = 'center';
