@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="fa" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rockstar Fans | سفارشی‌سازی پلاک‌های GTAVI</title>
+    
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <meta name="description" content="Rockstar Fans - GTA VI custom license plate generator.">
+
+    <style>
+        @font-face {
+            font-family: 'Vazirmatn';
+            src: url('/fonts/vazirmatn/Vazirmatn[wght].woff2') format('woff2');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'GTAArtDeco';
+            src: url('/fonts/vi/GTAArtDeco - Condensed Heavy.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        :root[data-theme="light"] {
+            --bg-overlay: rgba(10, 10, 10, 0.2);
+            --wrapper-bg: rgba(255, 255, 255, 0.92);
+            --text-color: #222;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --border-neon: #85007A;
+            --section-bg: #fff;
+            --btn-bg: #e0e0e0;
+            --btn-active: #85007A;
+            --btn-active-text: #fff;
+            --card-bg: rgba(245, 240, 250, 0.8);
+        }
+
+        :root[data-theme="dark"] {
+            --bg-overlay: rgba(11, 9, 20, 0.0);
+            --wrapper-bg: rgba(18, 16, 28, 0.9);
+            --text-color: #f1f1f5;
+            --box-shadow: 0 0 20px rgba(255, 0, 234, 0.25);
+            --border-neon: #FF00EA;
+            --section-bg: #161424;
+            --btn-bg: #221f38;
+            --btn-active: #FF00EA;
+            --btn-active-text: #fff;
+            --card-bg: rgba(28, 24, 43, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('/img/bg4.webp') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 60px;
+            color: var(--text-color);
+            direction: rtl;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg-overlay);
+            z-index: 1;
+            transition: background 0.3s;
+        }
+
+        .theme-toggle, .rsflogo, .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--section-bg);
+            border: 1px solid var(--border-neon);
+            color: var(--text-color);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10000;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--box-shadow);
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .rsflogo {
+            text-align: center;
+            margin: 40px 0 20px 0;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(to bottom, #9158d8, #9158d8, #fb68a7, #f09a54, #f09a54);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+
+        .content-wrapper {
+            width: 90%;
+            max-width: 900px;
+            background: var(--wrapper-bg);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(255, 0, 234, 0.15);
+            backdrop-filter: blur(8px);
+            margin-bottom: 40px;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        h2 {
+            border-bottom: 2px solid var(--border-neon);
+            padding-bottom: 8px;
+            margin-top: 0;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            text-align: center;
+        }
+
+        .thumbnails-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .thumb-item {
+            background: var(--section-bg);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .thumb-item:hover {
+            border-color: var(--border-neon);
+            transform: translateY(-2px);
+        }
+
+        .thumb-item.active {
+            border-color: var(--border-neon);
+            background: var(--card-bg);
+            box-shadow: 0 0 10px rgba(255, 0, 234, 0.3);
+        }
+
+        .thumb-item img {
+            width: 100%;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 5px;
+        }
+
+        .thumb-item span {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .canvas-preview-box {
+            background: var(--card-bg);
+            border: 2px solid var(--border-neon);
+            border-radius: 14px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: var(--box-shadow);
+        }
+
+        canvas {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .inputs-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            flex: 1;
+            max-width: 350px;
+            text-align: right;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .plate-input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border-neon);
+            background: var(--section-bg);
+            color: var(--text-color);
+            font-size: 1.1rem;
+            text-align: center;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            outline: none;
+            font-family: 'GTAArtDeco', sans-serif;
+        }
+
+        .action-btn {
+            background: var(--btn-active);
+            color: var(--btn-active-text);
+            border: none;
+            width: 100%;
+            max-width: 400px;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 0 4px 15px rgba(255, 0, 234, 0.3);
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .action-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        #telegram {
+            text-align: center;
+            margin: 2.5rem 0 1rem 0;
+        }
+
+        #telegram a {
+            display: inline-block;
+            padding: 0.7rem 2rem;
+            background-color: #0088cc;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        #telegram a:hover {
+            background-color: #006699;
+        }
+
+        footer {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 20px 0 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        footer img {
+            width: 200px;
+            height: auto;
+            margin-bottom: 5px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            color: var(--text-color);
+        }
+
+        @media (max-width: 768px) {
+            .content-wrapper {
+                padding: 1.5rem;
+                width: 94%;
+            }
+            .rsflogo {
+                font-size: 2.3rem;
+            }
+            .inputs-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .input-group {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="theme-toggle" id="themeBtn">🌙</button>
+
+    <h1 class="rsflogo">ROCKSTAR FANS</h1>
+
+    <div class="content-wrapper">         
+        <main>
+            <h2>سفارشی‌سازی پلاک‌های داخل بازی GTAVI</h2>
+            <p style="text-align: center; font-size: 0.95rem; opacity: 0.85; margin-bottom: 20px;">
+                پلاک مورد نظر خود را از زیر انتخاب کنید، متن دلخواه خود را بنویسید و تصویر نهایی را با کیفیت بالا دانلود کنید.
+            </p>
+
+            <div class="thumbnails-container" id="thumbnailsContainer"></div>
+
+            <div class="canvas-preview-box">
+                <canvas id="plateCanvas" width="1755" height="896"></canvas>
+            </div>
+
+            <div class="inputs-container" id="inputsContainer"></div>
+
+            <button id="downloadBtn" class="action-btn">📷 دانلود تصویر پلاک</button>
+
+            <section id="telegram">
+                <a href="https://t.me/rockstarfans" target="_blank">کانال تلگرام هواداران راکستار</a>
+            </section>
+        </main>
+        
+        <footer>
+            <img src="/img/newlogo-colored.png" alt="Rockstar Fans">
+            <p>&copy; 2011-2026</p>
+        </footer>
+    </div>
+
+    <script>
+        const platesData = [
+            {
+                id: "pink",
+                name: "لیونایدا صورتی",
+                thumb: "/img/plates/thumb_pink.webp",
+                image: "/img/plates/pink.webp",
+                type: "single",
+                maxChars: 8,
+                textX: 877,
+                textY: 480,
+                fontSize: 420,
+                color: "#1a1a1a"
+            },
+            {
+                id: "flamingo",
+                name: "لیونایدا فلامینگو",
+                thumb: "/img/plates/thumb_flamingo.webp",
+                image: "/img/plates/flamingo.webp",
+                type: "split",
+                maxChars: 4,
+                leftX: 300,       // کمی دورتر از مرکز به سمت چپ
+                rightX: 1450,     // کمی دورتر از مرکز به سمت راست
+                textY: 460,
+                fontSize: 360,    // ۸۰ درصد بزرگ‌تر (حدود ۱.۸ برابر ۲۰۰)
+                color: "#1a1a1a"
+            },
+            {
+                id: "crocodile",
+                name: "لیونایدا کروکودیل",
+                thumb: "/img/plates/thumb_crocodile.webp",
+                image: "/img/plates/crocodile.webp",
+                type: "split",
+                maxChars: 4,
+                leftX: 280,       // فاصله بیشتر به سمت گوشه‌ها
+                rightX: 1470,     // فاصله بیشتر به سمت گوشه‌ها
+                textY: 460,
+                fontSize: 300,    // یک و نیم برابر بزرگ‌تر (۱.۵ * ۲۰۰)
+                color: "#1a1a1a"
+            },
+            {
+                id: "portugal",
+                name: "لیونایدا پرتغال",
+                thumb: "/img/plates/thumb_portugal.webp",
+                image: "/img/plates/portugal.webp",
+                type: "split",
+                maxChars: 4,
+                leftX: 280,       // فاصله بیشتر به سمت گوشه‌ها
+                rightX: 1470,     // فاصله بیشتر به سمت گوشه‌ها
+                textY: 460,
+                fontSize: 300,    // یک و نیم برابر بزرگ‌تر (۱.۵ * ۲۰۰)
+                color: "#1a1a1a"
+            },
+            {
+                id: "dolphin",
+                name: "گلوریانا دلفین",
+                thumb: "/img/plates/thumb_dolphin.webp",
+                image: "/img/plates/dolphin.webp",
+                type: "split",
+                maxChars: 4,
+                leftX: 280,       // فاصله بیشتر به سمت گوشه‌ها
+                rightX: 1470,     // فاصله بیشتر به سمت گوشه‌ها
+                textY: 460,
+                fontSize: 300,    // یک و نیم برابر بزرگ‌تر (۱.۵ * ۲۰۰)
+                color: "#1a1a1a"
+            }
+        ];
+
+        let currentPlate = platesData[0];
+        let userInput1 = "ROCK";
+        let userInput2 = "STAR";
+
+        const thumbnailsContainer = document.getElementById('thumbnailsContainer');
+        const inputsContainer = document.getElementById('inputsContainer');
+        const canvas = document.getElementById('plateCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function renderThumbnails() {
+            thumbnailsContainer.innerHTML = '';
+            platesData.forEach((plate) => {
+                const div = document.createElement('div');
+                div.className = `thumb-item ${plate.id === currentPlate.id ? 'active' : ''}`;
+                div.innerHTML = `
+                    <img src="${plate.thumb}" alt="${plate.name}">
+                    <span>${plate.name}</span>
+                `;
+                div.addEventListener('click', () => {
+                    currentPlate = plate;
+                    renderThumbnails();
+                    renderInputs();
+                    drawPlate();
+                });
+                thumbnailsContainer.appendChild(div);
+            });
+        }
+
+        function renderInputs() {
+            inputsContainer.innerHTML = '';
+            if (currentPlate.type === 'single') {
+                inputsContainer.innerHTML = `
+                    <div class="input-group">
+                        <label for="plateText">متن پلاک (حداکثر ${currentPlate.maxChars} کاراکتر):</label>
+                        <input type="text" id="plateText" class="plate-input" maxlength="${currentPlate.maxChars}" value="${userInput1}">
+                    </div>
+                `;
+                document.getElementById('plateText').addEventListener('input', (e) => {
+                    userInput1 = e.target.value.toUpperCase();
+                    drawPlate();
+                });
+            } else {
+                inputsContainer.innerHTML = `
+                    <div class="input-group">
+                        <label>بخش دوم (۴ کاراکتر سمت راست):</label>
+                        <input type="text" id="plateText2" class="plate-input" maxlength="${currentPlate.maxChars}" value="${userInput2}">
+                    </div>
+                    <div class="input-group">
+                        <label>بخش اول (۴ کاراکتر سمت چپ):</label>
+                        <input type="text" id="plateText1" class="plate-input" maxlength="${currentPlate.maxChars}" value="${userInput1}">
+                    </div>					
+                `;
+                document.getElementById('plateText1').addEventListener('input', (e) => {
+                    userInput1 = e.target.value.toUpperCase();
+                    drawPlate();
+                });
+                document.getElementById('plateText2').addEventListener('input', (e) => {
+                    userInput2 = e.target.value.toUpperCase();
+                    drawPlate();
+                });
+            }
+        }
+
+        function drawPlate() {
+            const img = new Image();
+            img.crossOrigin = "anonymous";
+            img.src = currentPlate.image;
+            img.onload = () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                ctx.font = `${currentPlate.fontSize}px 'GTAArtDeco', sans-serif`;
+                ctx.fillStyle = currentPlate.color;
+                ctx.textBaseline = 'middle';
+
+                // تنظیمات افکت سایه و برجستگی (Emboss / 3D)
+                ctx.shadowColor = 'rgba(255, 255, 255, 0.45)';
+                ctx.shadowOffsetX = 2;
+                ctx.shadowOffsetY = 4;
+                ctx.shadowBlur = 3;
+
+                if (currentPlate.type === 'single') {
+                    ctx.textAlign = 'center';
+                    ctx.fillText(userInput1, currentPlate.textX, currentPlate.textY);
+                } else {
+                    ctx.textAlign = 'center';
+                    ctx.fillText(userInput1, currentPlate.leftX, currentPlate.textY);
+                    ctx.fillText(userInput2, currentPlate.rightX, currentPlate.textY);
+                }
+            };
+        }
+
+        document.getElementById('downloadBtn').addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.download = `gtavi-plate-${currentPlate.id}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
+
+        const themeBtn = document.getElementById('themeBtn');
+        const htmlEl = document.documentElement;
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        htmlEl.setAttribute('data-theme', savedTheme);
+        updateButtonIcon(savedTheme);
+
+        themeBtn.addEventListener('click', () => {
+            const currentTheme = htmlEl.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            htmlEl.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateButtonIcon(newTheme);
+        });
+
+        function updateButtonIcon(theme) {
+            themeBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+        }
+
+        renderThumbnails();
+        renderInputs();
+        document.fonts.ready.then(() => {
+            drawPlate();
+        });
+    </script>
+</body>
+</html>
