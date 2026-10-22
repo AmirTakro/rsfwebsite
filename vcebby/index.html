@@ -431,8 +431,8 @@
         const canvas = document.getElementById('plateCanvas');
         const ctx = canvas.getContext('2d');
 
-        function filterEnglishOnly(val) {
-            return val.replace(/[^a-zA-Z0-9\s]/g, '').toUpperCase();
+        function filterEnglishOnly(val, maxLen) {
+            return val.replace(/[^a-zA-Z0-9\s]/g, '').toUpperCase().slice(0, maxLen);
         }
 
         function renderThumbnails() {
@@ -446,6 +446,12 @@
                 `;
                 div.addEventListener('click', () => {
                     currentPlate = plate;
+                    
+                    if (currentPlate.type === 'split') {
+                        if (userInput1.length > 4) userInput1 = "RSF";
+                        if (userInput2.length > 4) userInput2 = "2011";
+                    }
+
                     renderThumbnails();
                     renderInputs();
                     drawPlate();
@@ -465,7 +471,7 @@
                 `;
                 const inputEl = document.getElementById('plateText');
                 inputEl.addEventListener('input', (e) => {
-                    const cleanVal = filterEnglishOnly(e.target.value);
+                    const cleanVal = filterEnglishOnly(e.target.value, currentPlate.maxChars);
                     e.target.value = cleanVal;
                     userInput1 = cleanVal;
                     drawPlate();
@@ -485,13 +491,13 @@
                 const input2El = document.getElementById('plateText2');
 
                 input1El.addEventListener('input', (e) => {
-                    const cleanVal = filterEnglishOnly(e.target.value);
+                    const cleanVal = filterEnglishOnly(e.target.value, currentPlate.maxChars);
                     e.target.value = cleanVal;
                     userInput1 = cleanVal;
                     drawPlate();
                 });
                 input2El.addEventListener('input', (e) => {
-                    const cleanVal = filterEnglishOnly(e.target.value);
+                    const cleanVal = filterEnglishOnly(e.target.value, currentPlate.maxChars);
                     e.target.value = cleanVal;
                     userInput2 = cleanVal;
                     drawPlate();
