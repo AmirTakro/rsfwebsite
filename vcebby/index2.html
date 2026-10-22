@@ -476,13 +476,13 @@
             } else {
                 inputsContainer.innerHTML = `
                     <div class="input-group">
-                        <label>بخش اول (۴ کاراکتر سمت چپ):</label>
-                        <input type="text" id="plateText1" class="plate-input" maxlength="${currentPlate.maxChars}" value="${userInput1}">
-                    </div>
-                    <div class="input-group">
                         <label>بخش دوم (۴ کاراکتر سمت راست):</label>
                         <input type="text" id="plateText2" class="plate-input" maxlength="${currentPlate.maxChars}" value="${userInput2}">
                     </div>
+                    <div class="input-group">
+                        <label>بخش اول (۴ کاراکتر سمت چپ):</label>
+                        <input type="text" id="plateText1" class="plate-input" maxlength="${currentPlate.maxChars}" value="${userInput1}">
+                    </div>					
                 `;
                 document.getElementById('plateText1').addEventListener('input', (e) => {
                     userInput1 = e.target.value.toUpperCase();
