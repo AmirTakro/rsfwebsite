@@ -30,47 +30,6 @@
     }
 
     :root[data-theme="dark"] {
-        --bg-overlay: rgba(11, تغییرات جدید اعمال شدند:
-
-۱. رنگ متن `card-header-title` به حالت عادی برگشت و اثر سایه/اوتلاین سفید کاملاً حذف شد.
-۲. حاشیه دور کادر اسکرین‌شات (`countdown-card`) بر اساس پلتفرم انتخابی تغییر می‌کند (`#003791` برای پلی‌استیشن و `#107C10` برای ایکس‌باکس).
-۳. عناوین «شروع پریلود» و «عرضه رسمی بازی» داخل بخش اسکرین‌شات بر اساس پلتفرم انتخابی تغییر رنگ می‌دهند (`#2d4bff` برای پلی‌استیشن و `#01a825` برای ایکس‌باکس).
-
-کد کامل و به‌روزرسانی شده:
-
-```html
-<link rel="icon" type="image/png" href="/img/favicon.png">
-<meta name="description" content="Rockstar Fans - GTA VI Release and Preload Time Calculator across different regions.">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rockstar Fans | محاسبه زمان انتشار و پریلود بازی GTAVI</title>
-
-<!-- Include html2canvas for screenshot functionality -->
-<script src="[https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js](https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js)"></script>
-
-<style>
-    @font-face {
-        font-family: 'Vazirmatn';
-        src: url('/fonts/vazirmatn/Vazirmatn[wght].woff2') format('woff2-supports-variations'),
-        url('/fonts/vazirmatn/Vazirmatn[wght].woff2') format('woff2');
-        font-weight: 100 900;
-        font-style: normal;
-        font-display: swap;
-    }
-    
-    :root[data-theme="light"] {
-        --bg-overlay: rgba(10, 10, 10, 0.2);
-        --wrapper-bg: rgba(255, 255, 255, 0.92);
-        --text-color: #222;
-        --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        --border-neon: #85007A;
-        --section-bg: #fff;
-        --btn-bg: #e0e0e0;
-        --btn-active: #85007A;
-        --btn-active-text: #fff;
-        --card-bg: rgba(245, 240, 250, 0.8);
-    }
-
-    :root[data-theme="dark"] {
         --bg-overlay: rgba(11, 9, 20, 0.0);
         --wrapper-bg: rgba(18, 16, 28, 0.9);
         --text-color: #f1f1f5;
@@ -207,40 +166,6 @@
         text-align: right;
     }
 
-    /* Platform Tabs Styling */
-    .platform-tabs {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 20px;
-        justify-content: center;
-    }
-
-    .platform-btn {
-        flex: 1;
-        padding: 10px;
-        background: var(--section-bg);
-        border: 1px solid var(--border-neon);
-        color: var(--text-color);
-        border-radius: 8px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s;
-    }
-
-    .platform-btn.active[data-platform="ps5"] {
-        background: #003791;
-        color: #fff;
-        border-color: #003791;
-        box-shadow: 0 0 10px rgba(0, 55, 145, 0.5);
-    }
-
-    .platform-btn.active[data-platform="xbox"] {
-        background: #107C10;
-        color: #fff;
-        border-color: #107C10;
-        box-shadow: 0 0 10px rgba(16, 124, 16, 0.5);
-    }
-
     /* Screenshot Target Card Container */
     .countdown-card {
         background: var(--card-bg);
@@ -251,14 +176,13 @@
         margin-top: 20px;
         direction: rtl;
         text-align: right;
-        transition: border-color 0.3s;
     }
 
     .card-header-title {
         text-align: center;
         font-size: 1.3rem;
         font-weight: 700;
-        color: var(--text-color);
+        color: var(--border-neon);
         margin-bottom: 1.5rem;
     }
 
@@ -281,7 +205,6 @@
         margin: 0 0 10px 0;
         font-size: 1.1rem;
         color: var(--border-neon);
-        transition: color 0.3s;
     }
 
     .time-detail {
@@ -436,16 +359,9 @@
         <div class="selector-section">
             <h2>محاسبه‌گر زمان انتشار و پریلود GTAVI</h2>
             <p style="text-align: center; font-size: 0.95rem; opacity: 0.85; margin-bottom: 20px;">
-                پلتفرم و ریجن خود را انتخاب کنید تا تاریخ، ساعت محلی، ساعت ایران و زمان باقی‌مانده را مشاهده کنید.
+                کشور یا ریجن خود را از لیست زیر انتخاب کنید یا نام آن را جستجو کنید تا تاریخ، ساعت محلی، ساعت ایران و زمان باقی‌مانده را مشاهده کنید.
             </p>
             
-            <!-- Platform Selector Tabs -->
-            <label>انتخاب پلتفرم:</label>
-            <div class="platform-tabs">
-                <button class="platform-btn active" data-platform="ps5">پلی‌استیشن ۵ (PS5)</button>
-                <button class="platform-btn" data-platform="xbox">اکس‌باکس (Xbox Series X|S)</button>
-            </div>
-
             <label for="countrySearch">جستجوی دستی کشور:</label>
             <input type="text" id="countrySearch" class="search-input" placeholder="مثال: آمریکا، آلمان، برزیل...">
 
@@ -483,7 +399,7 @@
         <button id="screenshotBtn" class="action-btn">📷 دانلود اسکرین‌شات زمان‌بندی</button>
 
         <section id="telegram">
-            <a href="[https://t.me/rockstarfans](https://t.me/rockstarfans)" target="_blank">کانال تلگرام هواداران راکستار</a>
+            <a href="https://t.me/rockstarfans" target="_blank">کانال تلگرام هواداران راکستار</a>
         </section>
     </main>
     
@@ -509,6 +425,7 @@
         { name: "استرالیا - آدلاید (Australia - Adelaide)", flag: "🇦🇺", tz: "Australia/Adelaide", priority: 100 },
         { name: "استرالیا - پرث (Australia - Perth)", flag: "🇦🇺", tz: "Australia/Perth", priority: 100 },
         { name: "استرالیا - سیدنی (Australia - Sydney)", flag: "🇦🇺", tz: "Australia/Sydney", priority: 100 },
+        { name: "اسرائیل (Israel)", flag: "🇮🇱", tz: "Asia/Jerusalem", priority: 100 },
         { name: "امارات متحده عربی (United Arab Emirates)", flag: "🇦🇪", tz: "Asia/Dubai", priority: 100 },
         { name: "اوکراین (Ukraine)", flag: "🇺🇦", tz: "Europe/Kyiv", priority: 100 },
         { name: "ایرلند (Ireland)", flag: "🇮🇪", tz: "Europe/Dublin", priority: 100 },
@@ -544,11 +461,7 @@
     const countrySelect = document.getElementById('countrySelect');
     const countrySearch = document.getElementById('countrySearch');
     const selectedCountryDisplay = document.getElementById('selectedCountryDisplay');
-    const captureArea = document.getElementById('captureArea');
-    const platformBtns = document.querySelectorAll('.platform-btn');
     
-    let currentPlatform = 'ps5'; // Default platform
-
     const preloadLocalEl = document.getElementById('preloadLocal');
     const preloadIranEl = document.getElementById('preloadIran');
     const preloadCountdownEl = document.getElementById('preloadCountdown');
@@ -556,29 +469,6 @@
     const releaseLocalEl = document.getElementById('releaseLocal');
     const releaseIranEl = document.getElementById('releaseIran');
     const releaseCountdownEl = document.getElementById('releaseCountdown');
-
-    function applyPlatformStyles() {
-        const timeBoxTitles = document.querySelectorAll('.time-box h3');
-        if (currentPlatform === 'ps5') {
-            captureArea.style.borderColor = '#003791';
-            timeBoxTitles.forEach(h3 => h3.style.color = '#2d4bff');
-        } else {
-            captureArea.style.borderColor = '#107C10';
-            timeBoxTitles.forEach(h3 => h3.style.color = '#01a825');
-        }
-    }
-
-    // Platform selection event
-    platformBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            platformBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentPlatform = btn.dataset.platform;
-            
-            applyPlatformStyles();
-            updateTimers();
-        });
-    });
 
     function populateSelect(list) {
         countrySelect.innerHTML = '';
@@ -650,22 +540,14 @@
         const flag = selectedOption.dataset.flag || "";
         const countryName = selectedOption.dataset.name || selectedOption.textContent;
         
-        selectedCountryDisplay.textContent = `ریجن انتخاب‌شده: ${flag} ${countryName} (${currentPlatform === 'ps5' ? 'PS5' : 'Xbox Series X|S'})`;
+        selectedCountryDisplay.textContent = `ریجن انتخاب‌شده: ${flag} ${countryName}`;
 
-        let preloadEpoch;
-        if (currentPlatform === 'xbox') {
-            // Xbox: Nov 10, 2026, 00:00 GMT (UTC) globally across all regions
-            preloadEpoch = Date.UTC(2026, 10, 10, 0, 0, 0);
-            preloadLocalEl.textContent = `زمان جهانی (GMT): ۱۰ نوامبر ۲۰۲۶ - ۰۰:۰۰`;
-        } else {
-            // PS5: Nov 10, 2026, 00:00 local time per region
-            preloadEpoch = getEpochForLocalTime(2026, 11, 10, 0, 0, tz);
-            preloadLocalEl.textContent = `تاریخ محلی: ۱۰ نوامبر ۲۰۲۶ - ۰۰:۰۰`;
-        }
-
-        // Release: Nov 19, 2026, 00:00 local (remains regional roll-out)
+        // Preload: Nov 10, 2026, 00:00 local
+        const preloadEpoch = getEpochForLocalTime(2026, 11, 10, 0, 0, tz);
+        // Release: Nov 19, 2026, 00:00 local
         const releaseEpoch = getEpochForLocalTime(2026, 11, 19, 0, 0, tz);
 
+        preloadLocalEl.textContent = `تاریخ محلی: ۱۰ نوامبر ۲۰۲۶ - ۰۰:۰۰`;
         preloadIranEl.textContent = `به وقت ایران: ${formatIranTime(preloadEpoch)}`;
 
         releaseLocalEl.textContent = `تاریخ محلی: ۱۹ نوامبر ۲۰۲۶ - ۰۰:۰۰`;
@@ -676,7 +558,6 @@
         releaseCountdownEl.textContent = formatRemainingTime(releaseEpoch - now);
     }
 
-    applyPlatformStyles();
     countrySelect.addEventListener('change', updateTimers);
     setInterval(updateTimers, 1000);
     updateTimers();

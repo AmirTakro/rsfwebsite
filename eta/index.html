@@ -166,24 +166,65 @@
         text-align: right;
     }
 
+    /* Platform Tabs Styling */
+    .platform-tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        justify-content: center;
+    }
+
+    .platform-btn {
+        flex: 1;
+        padding: 10px;
+        background: var(--section-bg);
+        color: var(--text-color);
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .platform-btn[data-platform="ps5"] {
+        border: 1px solid #003791;
+    }
+
+    .platform-btn[data-platform="ps5"].active {
+        background: #003791;
+        color: #fff;
+        box-shadow: 0 0 10px rgba(0, 55, 145, 0.4);
+    }
+
+    .platform-btn[data-platform="xbox"] {
+        border: 1px solid #107C10;
+    }
+
+    .platform-btn[data-platform="xbox"].active {
+        background: #107C10;
+        color: #fff;
+        box-shadow: 0 0 10px rgba(16, 124, 16, 0.4);
+    }
+
     /* Screenshot Target Card Container */
     .countdown-card {
         background: var(--card-bg);
-        border: 2px solid var(--border-neon);
+        border: 2px solid #003791;
         border-radius: 14px;
         padding: 2rem;
         box-shadow: var(--box-shadow);
         margin-top: 20px;
         direction: rtl;
         text-align: right;
+        transition: border-color 0.3s;
     }
 
     .card-header-title {
         text-align: center;
         font-size: 1.3rem;
         font-weight: 700;
-        color: var(--border-neon);
+        color: #2d4bff;
         margin-bottom: 1.5rem;
+        transition: color 0.3s;
     }
 
     .time-grid {
@@ -204,7 +245,8 @@
     .time-box h3 {
         margin: 0 0 10px 0;
         font-size: 1.1rem;
-        color: var(--border-neon);
+        color: #2d4bff;
+        transition: color 0.3s;
     }
 
     .time-detail {
@@ -359,9 +401,16 @@
         <div class="selector-section">
             <h2>محاسبه‌گر زمان انتشار و پریلود GTAVI</h2>
             <p style="text-align: center; font-size: 0.95rem; opacity: 0.85; margin-bottom: 20px;">
-                کشور یا ریجن خود را از لیست زیر انتخاب کنید یا نام آن را جستجو کنید تا تاریخ، ساعت محلی، ساعت ایران و زمان باقی‌مانده را مشاهده کنید.
+                پلتفرم و ریجن خود را انتخاب کنید تا تاریخ، ساعت محلی، ساعت ایران و زمان باقی‌مانده را مشاهده کنید.
             </p>
             
+            <!-- Platform Selector Tabs -->
+            <label>انتخاب پلتفرم:</label>
+            <div class="platform-tabs">
+                <button class="platform-btn active" data-platform="ps5">پلی‌استیشن ۵ (PS5)</button>
+                <button class="platform-btn" data-platform="xbox">اکس‌باکس (Xbox Series X|S)</button>
+            </div>
+
             <label for="countrySearch">جستجوی دستی کشور:</label>
             <input type="text" id="countrySearch" class="search-input" placeholder="مثال: آمریکا، آلمان، برزیل...">
 
@@ -461,7 +510,13 @@
     const countrySelect = document.getElementById('countrySelect');
     const countrySearch = document.getElementById('countrySearch');
     const selectedCountryDisplay = document.getElementById('selectedCountryDisplay');
+    const platformBtns = document.querySelectorAll('.platform-btn');
+    const captureArea = document.getElementById('captureArea');
+    const cardHeaderTitle = document.querySelector('.card-header-title');
+    const timeBoxHeadings = document.querySelectorAll('.time-box h3');
     
+    let currentPlatform = 'ps5'; // Default platform
+
     const preloadLocalEl = document.getElementById('preloadLocal');
     const preloadIranEl = document.getElementById('preloadIran');
     const preloadCountdownEl = document.getElementById('preloadCountdown');
@@ -469,6 +524,28 @@
     const releaseLocalEl = document.getElementById('releaseLocal');
     const releaseIranEl = document.getElementById('releaseIran');
     const releaseCountdownEl = document.getElementById('releaseCountdown');
+
+    // Platform selection event
+    platformBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            platformBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentPlatform = btn.dataset.platform;
+            updatePlatformStyles();
+            updateTimers();
+        });
+    });
+
+    function updatePlatformStyles() {
+        const cardBorderColor = currentPlatform === 'ps5' ? '#003791' : '#107C10';
+        const headingColor = currentPlatform === 'ps5' ? '#2d4bff' : '#01a825';
+
+        captureArea.style.borderColor = cardBorderColor;
+        if (cardHeaderTitle) cardHeaderTitle.style.color = headingColor;
+        timeBoxHeadings.forEach(h3 => {
+            h3.style.color = headingColor;
+        });
+    }
 
     function populateSelect(list) {
         countrySelect.innerHTML = '';
@@ -484,6 +561,7 @@
     }
 
     populateSelect(regionsData);
+    updatePlatformStyles();
 
     // Search filter logic
     countrySearch.addEventListener('input', (e) => {
@@ -540,14 +618,22 @@
         const flag = selectedOption.dataset.flag || "";
         const countryName = selectedOption.dataset.name || selectedOption.textContent;
         
-        selectedCountryDisplay.textContent = `ریجن انتخاب‌شده: ${flag} ${countryName}`;
+        selectedCountryDisplay.textContent = `ریجن انتخاب‌شده: ${flag} ${countryName} (${currentPlatform === 'ps5' ? 'PS5' : 'Xbox Series X|S'})`;
 
-        // Preload: Nov 10, 2026, 00:00 local
-        const preloadEpoch = getEpochForLocalTime(2026, 11, 10, 0, 0, tz);
-        // Release: Nov 19, 2026, 00:00 local
+        let preloadEpoch;
+        if (currentPlatform === 'xbox') {
+            // Xbox: Nov 10, 2026, 00:00 GMT (UTC) globally across all regions
+            preloadEpoch = Date.UTC(2026, 10, 10, 0, 0, 0);
+            preloadLocalEl.textContent = `زمان جهانی (GMT): ۱۰ نوامبر ۲۰۲۶ - ۰۰:۰۰`;
+        } else {
+            // PS5: Nov 10, 2026, 00:00 local time per region
+            preloadEpoch = getEpochForLocalTime(2026, 11, 10, 0, 0, tz);
+            preloadLocalEl.textContent = `تاریخ محلی: ۱۰ نوامبر ۲۰۲۶ - ۰۰:۰۰`;
+        }
+
+        // Release: Nov 19, 2026, 00:00 local (remains regional roll-out)
         const releaseEpoch = getEpochForLocalTime(2026, 11, 19, 0, 0, tz);
 
-        preloadLocalEl.textContent = `تاریخ محلی: ۱۰ نوامبر ۲۰۲۶ - ۰۰:۰۰`;
         preloadIranEl.textContent = `به وقت ایران: ${formatIranTime(preloadEpoch)}`;
 
         releaseLocalEl.textContent = `تاریخ محلی: ۱۹ نوامبر ۲۰۲۶ - ۰۰:۰۰`;
