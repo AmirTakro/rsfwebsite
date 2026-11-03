@@ -593,11 +593,21 @@
 
     function formatIranTime(epochMs) {
         const date = new Date(epochMs);
-        return new Intl.DateTimeFormat('fa-IR', {
+        const formatter = new Intl.DateTimeFormat('fa-IR', {
             timeZone: 'Asia/Tehran',
-            dateStyle: 'full',
-            timeStyle: 'medium'
-        }).format(date);
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            hour12: false
+        });
+        const parts = formatter.formatToParts(date);
+        let p = {};
+        parts.forEach(part => p[part.type] = part.value);
+        return `${p.weekday}، ${p.day} ${p.month} ${p.year} - ${p.hour}:${p.minute}:${p.second}`;
     }
 
     function formatRemainingTime(ms) {
